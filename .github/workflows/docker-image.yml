@@ -23,4 +23,4 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag tceqmgqe/eqm-gqe-api:$(date +%s)
     - name: Docker Push
-      run: docker push tceqmgqe/eqm-gqe-api
+      run: docker push tceqmgqe/eqm-gqe-api:$(date +%s)
