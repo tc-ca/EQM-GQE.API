@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: eqm-gqe-api
-        image: jasonau/eqm-gqe-api:latest
+        image: tceqmgqe/eqm-gqe-api:latest
         ports:
         - containerPort: 80
         env:
