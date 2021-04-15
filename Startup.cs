@@ -29,7 +29,7 @@ namespace EQM_GQE.API
         public void ConfigureServices(IServiceCollection services)
         {
             // When running locally, this should be pulled from user-secrets
-            var defaultConnection = Configuration["ConnectionStrings:DefaultConnection"];
+            var defaultConnection = Configuration["eqmgqepostgresqlConnectionString"];
             services.AddDbContext<QuestionnaireContext>(options =>
                 options.UseNpgsql(defaultConnection)
             );
