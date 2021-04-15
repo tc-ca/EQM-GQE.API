@@ -4,7 +4,7 @@ namespace EQM_GQE.API.Models
 {
     public class Questionnaire
     {
-        public Guid Id { get; set; }
+        public long Id { get; set; }
 
         public DateTime DateCreated { get; set; }
 
