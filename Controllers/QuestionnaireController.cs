@@ -13,7 +13,12 @@ namespace EQM_GQE.API.Controllers
     {
         private static readonly string[] Templates = new[]
         {
-            "Questionnaire Template 1", "Questionnaire Template 2", "Questionnaire Template 3", "Questionnaire Template 4", "Questionnaire Template 5", "Questionnaire Template 6"
+            "{ 'pages': [ { 'name': 'Questionnaire 1' } ] }", 
+            "{ 'pages': [ { 'name': 'Questionnaire 2' } ] }", 
+            "{ 'pages': [ { 'name': 'Questionnaire 3' } ] }", 
+            "{ 'pages': [ { 'name': 'Questionnaire 4' } ] }", 
+            "{ 'pages': [ { 'name': 'Questionnaire 5' } ] }", 
+            "{ 'pages': [ { 'name': 'Questionnaire 6' } ] }", 
         };
 
         private readonly ILogger<QuestionnaireController> _logger;
