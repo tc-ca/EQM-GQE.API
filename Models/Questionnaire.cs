@@ -1,6 +1,6 @@
 using System;
 
-namespace EQM_GQE.API
+namespace EQM_GQE.API.Models
 {
     public class Questionnaire
     {
