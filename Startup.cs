@@ -28,6 +28,12 @@ namespace EQM_GQE.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // When running locally, this should be pulled from user-secrets, otherwise it will read from Azure App Service Configuration
+            var defaultConnection = Configuration["eqmgqepostgresqlConnectionString"];
+            services.AddDbContext<QuestionnaireContext>(options =>
+                options.UseNpgsql(defaultConnection)
+            );
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
