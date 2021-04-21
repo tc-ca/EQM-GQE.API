@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using EQM_GQE.API.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace EQM_GQE.API.Controllers
 {
@@ -28,10 +29,12 @@ namespace EQM_GQE.API.Controllers
         };
 
         private readonly ILogger<QuestionnaireController> _logger;
+        private readonly IConfiguration _configuration;
 
-        public QuestionnaireController(ILogger<QuestionnaireController> logger)
+        public QuestionnaireController(ILogger<QuestionnaireController> logger, IConfiguration configuration)
         {
             _logger = logger;
+            _configuration = configuration;
         }
 
         [HttpGet]
@@ -42,7 +45,7 @@ namespace EQM_GQE.API.Controllers
             {
                 Id = index,
                 DateCreated = DateTime.Now.AddDays(index),
-                Template = Templates[rng.Next(Templates.Length)]
+                Template = _configuration["eqmgqepostgresqlConnectionString"] //Templates[rng.Next(Templates.Length)],
             })
             .ToArray();
         }
