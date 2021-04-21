@@ -10,12 +10,6 @@ variables:
 steps:
 - task: DotNetCoreCLI@2
   inputs:
-    command: 'restore'
-    feedsToUse: 'select'
-    vstsFeed: 'f44d1ef3-b012-4d30-b1d3-0cbfc6ab7352'
-
-- task: DotNetCoreCLI@2
-  inputs:
     command: 'build'
     arguments: '--configuration $(buildConfiguration)'
   displayName: 'dotnet build $(buildConfiguration)'
