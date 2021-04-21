@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.AzureAppConfiguration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Azure.Identity;
 
 namespace EQM_GQE.API
 {
@@ -20,7 +22,21 @@ namespace EQM_GQE.API
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder
+                        // Using Azure Identity
+                        .ConfigureAppConfiguration((hostingContext, config) =>
+                        {
+                            var settings = config.Build();
+                            config.AddAzureAppConfiguration(options =>
+                                {
+                                    options.Connect(settings["ConnectionStrings:AppConfig"])
+                                        .ConfigureKeyVault(kv =>
+                                        {
+                                            kv.SetCredential(new DefaultAzureCredential());
+                                        });
+                                });
+                        })
+                        .UseStartup<Startup>();
                 });
     }
 }
