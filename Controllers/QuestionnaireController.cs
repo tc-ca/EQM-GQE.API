@@ -12,29 +12,38 @@ namespace EQM_GQE.API.Controllers
     [Route("[controller]")]
     public class QuestionnaireController : ControllerBase
     {
-        private readonly ILogger<QuestionnaireController> _logger;
-        private readonly QuestionnaireContext _context;
+        private static readonly string[] Templates = new[]
+        {
+            "{ 'pages': [ { 'name': 'page1', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }", 
+            "{ 'pages': [ { 'name': 'page2', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }", 
+            "{ 'pages': [ { 'name': 'page3', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }", 
+            "{ 'pages': [ { 'name': 'page4', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }", 
+            "{ 'pages': [ { 'name': 'page5', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }", 
+            "{ 'pages': [ { 'name': 'page6', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }", 
+            "{ 'pages': [ { 'name': 'page7', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }", 
+            "{ 'pages': [ { 'name': 'page8', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }", 
+            "{ 'pages': [ { 'name': 'page9', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }", 
+            "{ 'pages': [ { 'name': 'page10', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }" 
+        };
 
-        public QuestionnaireController(ILogger<QuestionnaireController> logger, QuestionnaireContext context)
+        private readonly ILogger<QuestionnaireController> _logger;
+
+        public QuestionnaireController(ILogger<QuestionnaireController> logger)
         {
             _logger = logger;
-            _context = context;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Questionnaire>> GetAll()
+        public IEnumerable<Questionnaire> Get()
         {
-            return _context.Questionnaires.ToList();
-        }
-
-        [HttpGet("{id}", Name = "GetQuestionnaire")]
-        public ActionResult<Questionnaire> GetById(long id)
-        {
-            var questionnaire = _context.Questionnaires.Find(id);
-            if (questionnaire == null) {
-                return NotFound();
-            }
-            return questionnaire;
+            var rng = new Random();
+            return Enumerable.Range(1, 5).Select(index => new Questionnaire
+            {
+                Id = index,
+                DateCreated = DateTime.Now.AddDays(index),
+                Template = Templates[rng.Next(Templates.Length)]
+            })
+            .ToArray();
         }
     }
 }
