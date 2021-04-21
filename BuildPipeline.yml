@@ -2,30 +2,31 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'windows-latest'
+
+variables:
+  buildConfiguration: 'Release'
 
 steps:
-- task: UseDotNet@2
-  inputs:
-    version: '5.0.x'
-    includePreviewVersions: true # Required for preview versions
 - task: DotNetCoreCLI@2
   inputs:
     command: 'restore'
-    projects: '**/*.csproj'
     feedsToUse: 'select'
     vstsFeed: 'f44d1ef3-b012-4d30-b1d3-0cbfc6ab7352'
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    projects: '**/*.csproj'
-    arguments: '--configuration $(BuildConfiguration)'
+    arguments: '--configuration $(buildConfiguration)'
+  displayName: 'dotnet build $(buildConfiguration)'
+
 - task: DotNetCoreCLI@2
   inputs:
     command: publish
     publishWebProjects: True
     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: True
+
 - task: PublishBuildArtifacts@1
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
