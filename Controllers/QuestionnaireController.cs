@@ -12,6 +12,7 @@ namespace EQM_GQE.API.Controllers
     [Route("[controller]")]
     public class QuestionnaireController : ControllerBase
     {
+        // Sample data
         private static readonly string[] Templates = new[]
         {
             "{ 'pages': [ { 'name': 'page1', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }", 
