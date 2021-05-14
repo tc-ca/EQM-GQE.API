@@ -9,7 +9,7 @@ using EQM_GQE.API.Models;
 namespace EQM_GQE.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class QuestionnaireController : ControllerBase
     {
         private readonly ILogger<QuestionnaireController> _logger;

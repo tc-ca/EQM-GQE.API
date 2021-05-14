@@ -37,26 +37,6 @@
                 "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "bridge-to-kubernetes.resource",
-            "type": "bridge-to-kubernetes.resource",
-            "resource": "eqm-gqe-api",
-            "resourceType": "service",
-            "ports": [
-                80
-            ],
-            "targetCluster": "EqmGqeApiCluster",
-            "targetNamespace": "default",
-            "useKubernetesServiceEnvironmentVariables": false
-        },
-        {
-            "label": "bridge-to-kubernetes.compound",
-            "dependsOn": [
-                "bridge-to-kubernetes.resource",
-                "build"
-            ],
-            "dependsOrder": "sequence"
         }
     ]
 }
