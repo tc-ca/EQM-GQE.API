@@ -8,7 +8,6 @@ namespace EQM_GQE.API.Models
 
         public DateTime DateCreated { get; set; }
 
-        // Contains JSON definition for this questionnaire
         public string Template { get; set; }
     }
 }
