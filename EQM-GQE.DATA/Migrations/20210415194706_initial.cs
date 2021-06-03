@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace EQM_GQE.API.Migrations
+namespace EQM_GQE.DATA.Migrations
 {
     public partial class initial : Migration
     {
