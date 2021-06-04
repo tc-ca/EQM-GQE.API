@@ -12,11 +12,19 @@ namespace EQM_GQE.SHARED_RESOURCES.Models
 
         public BusinessLine BusinessLine { get; set; }
 
+        public long BusinessLineId { get; set; }
+
         public DocumentType DocumentType { get; set; }
+
+        public long DocumentTypeId { get; set; }
 
         public DocumentStatus DocumentStatus { get; set; }
 
+        public long DocumentStatusId { get; set; }
+
         public SecurityClassification SecurityClassification { get; set; }
+
+        public long SecurityClassificationId { get; set; }
 
         public DateTime CreatedOn { get; set; }
 

@@ -4,7 +4,7 @@ namespace EQM_GQE.SHARED_RESOURCES.Models
 {
     public class DocumentType
     {
-        public long Id { get; set; }
+        public long DocumentTypeId { get; set; }
         
         public string DocumentType_EN { get; set; }
 

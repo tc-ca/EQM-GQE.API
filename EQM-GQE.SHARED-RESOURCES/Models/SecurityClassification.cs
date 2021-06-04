@@ -4,7 +4,7 @@ namespace EQM_GQE.SHARED_RESOURCES.Models
 {
     public class SecurityClassification
     {
-        public long Id { get; set; }
+        public long SecurityClassificationId { get; set; }
         
         public string SecurityClassification_EN { get; set; }
 

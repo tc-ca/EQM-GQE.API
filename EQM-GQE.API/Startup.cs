@@ -11,8 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-
-
+using EQM_GQE.DATA;
+using Microsoft.EntityFrameworkCore;
 
 namespace EQM_GQE.API
 {
@@ -33,6 +33,13 @@ namespace EQM_GQE.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EQM_GQE.API", Version = "v1" });
             });
+
+            services.AddMvc();
+            services.AddDbContext<QuestionnaireContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            //services.AddEntityFrameworkNpgsql().AddDbContext<QuestionnaireContext>(opt =>
+            //    opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,7 +51,7 @@ namespace EQM_GQE.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EQM_GQE.API v1"));
             }
-
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();

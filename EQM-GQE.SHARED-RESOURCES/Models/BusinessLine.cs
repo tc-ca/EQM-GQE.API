@@ -4,7 +4,7 @@ namespace EQM_GQE.SHARED_RESOURCES.Models
 {
     public class BusinessLine
     {
-        public long Id { get; set; }
+        public long BusinessLineId { get; set; }
         
         public string BusinessName_EN { get; set; }
 
