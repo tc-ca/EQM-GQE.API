@@ -19,48 +19,6 @@ namespace EQM_GQE.DATA
                     return;   // DB has been seeded
                 }
 
-                //Seed Questionnaire Data
-                context.Questionnaires.AddRange(
-                     new Questionnaire
-                     {
-                         Template = "Template Text 1",
-                         DocumentTitle = "Document Title 1",
-                         BusinessLineId = 1,
-                         DocumentTypeId = 1,
-                         DocumentStatusId = 1,
-                         SecurityClassificationId = 1,
-                         CreatedOn = DateTime.Parse("2021-06-07"),
-                         ModifiedOn = DateTime.Parse("2021-06-07"),
-                         CreatedBy = "RBOSH",
-                         ModifiedBy = "RBOSH",
-                         ActiveStatus = true,
-                         DocumentVersion = 1,
-                         EffectiveDate = DateTime.Parse("1989-1-11"),
-                         ChangeSummary = "Change Summary Text 1",
-                         OrganisationAccessibility = true,
-                         ParentId = 0
-                     },
-
-                    new Questionnaire
-                    {
-                        Template = "Template Text 2",
-                        DocumentTitle = "Document Title 2",
-                        BusinessLineId = 2,
-                        DocumentTypeId = 2,
-                        DocumentStatusId = 2,
-                        SecurityClassificationId = 1,
-                        CreatedOn = DateTime.Parse("2021-06-07"),
-                        ModifiedOn = DateTime.Parse("2021-06-07"),
-                        CreatedBy = "RBOSH",
-                        ModifiedBy = "RBOSH",
-                        ActiveStatus = true,
-                        DocumentVersion = 1,
-                        EffectiveDate = DateTime.Parse("1989-1-11"),
-                        ChangeSummary = "Change Summary Text 2",
-                        OrganisationAccessibility = true,
-                        ParentId = 0
-                    }
-                );
 
                 //Seed Business Line Data
                 context.BusinessLines.AddRange(
@@ -126,6 +84,50 @@ namespace EQM_GQE.DATA
                     {
                         SecurityClassification_EN = "SecurityClassification2 English",
                         SecurityClassification_FR = "SecurityClassification2 French"
+                    }
+                );
+                context.SaveChanges();
+
+                //Seed Questionnaire Data
+                context.Questionnaires.AddRange(
+                     new Questionnaire
+                     {
+                         Template = "Template Text 1",
+                         DocumentTitle = "Document Title 1",
+                         BusinessLineId = 3,
+                         DocumentTypeId = 1,
+                         DocumentStatusId = 1,
+                         SecurityClassificationId = 1,
+                         CreatedOn = DateTime.Parse("2021-06-07"),
+                         ModifiedOn = DateTime.Parse("2021-06-07"),
+                         CreatedBy = "RBOSH",
+                         ModifiedBy = "RBOSH",
+                         ActiveStatus = true,
+                         DocumentVersion = 1,
+                         EffectiveDate = DateTime.Parse("1989-1-11"),
+                         ChangeSummary = "Change Summary Text 1",
+                         OrganisationAccessibility = true,
+                         ParentId = 0
+                     },
+
+                    new Questionnaire
+                    {
+                        Template = "Template Text 2",
+                        DocumentTitle = "Document Title 2",
+                        BusinessLineId = 4,
+                        DocumentTypeId = 2,
+                        DocumentStatusId = 2,
+                        SecurityClassificationId = 2,
+                        CreatedOn = DateTime.Parse("2021-06-07"),
+                        ModifiedOn = DateTime.Parse("2021-06-07"),
+                        CreatedBy = "RBOSH",
+                        ModifiedBy = "RBOSH",
+                        ActiveStatus = true,
+                        DocumentVersion = 1,
+                        EffectiveDate = DateTime.Parse("1989-1-11"),
+                        ChangeSummary = "Change Summary Text 2",
+                        OrganisationAccessibility = true,
+                        ParentId = 0
                     }
                 );
                 context.SaveChanges();
