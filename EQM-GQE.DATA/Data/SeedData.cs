@@ -7,133 +7,7 @@ using System.Linq;
 namespace EQM_GQE.DATA
 {
     public static class SeedData
-    {
-        public static void Initialize(IServiceProvider serviceProvider)
-        {
-            using (var context = new QuestionnaireContext(
-                serviceProvider.GetRequiredService<DbContextOptions<QuestionnaireContext>>()))
-            {
-                // Look for any movies.
-                if (context.Questionnaires.Any())
-                {
-                    return;   // DB has been seeded
-                }
-
-
-                //Seed Business Line Data
-                context.BusinessLines.AddRange(
-                     new BusinessLine
-                     {
-                         BusinessName_EN = "BusinessLine1 English",
-                         BusinessName_FR = "BusinessLine1 French",
-                         Abbreviation_EN = "BL1_En",
-                         Abbreviation_FR = "BL1_Fr"
-                     },
-
-                     new BusinessLine
-                     {
-                         BusinessName_EN = "BusinessLine2 English",
-                         BusinessName_FR = "BusinessLine2 French",
-                         Abbreviation_EN = "BL2_En",
-                         Abbreviation_FR = "BL2_Fr"
-                     }
-                );
-                context.SaveChanges();
-
-                //Seed Document Types Data
-                context.DocumentTypes.AddRange(
-                     new DocumentType
-                     {
-                         DocumentType_EN = "DocumentType1 English",
-                         DocumentType_FR = "DocumentType1 French"
-                     },
-
-                     new DocumentType
-                     {
-                         DocumentType_EN = "DocumentType2 English",
-                         DocumentType_FR = "DocumentType2 French"
-                     }
-                );
-                context.SaveChanges();
-
-                //Seed Document Status Data
-                context.DocumentStatus.AddRange(
-                     new DocumentStatus
-                     {
-                         DocumentStatus_EN = "DocumentStatus1 English",
-                         DocumentStatus_FR = "DocumentStatus1 French"
-                     },
-
-                     new DocumentStatus
-                     {
-                         DocumentStatus_EN = "DocumentStatus2 English",
-                         DocumentStatus_FR = "DocumentStatus2 French"
-                     }
-                );
-                context.SaveChanges();
-
-                //Seed Security lassification Data
-                context.SecurityClassifications.AddRange(
-                     new SecurityClassification
-                     {
-                         SecurityClassification_EN = "SecurityClassification1 English",
-                         SecurityClassification_FR = "SecurityClassification1 French"
-                     },
-
-                    new SecurityClassification
-                    {
-                        SecurityClassification_EN = "SecurityClassification2 English",
-                        SecurityClassification_FR = "SecurityClassification2 French"
-                    }
-                );
-                context.SaveChanges();
-
-                //Seed Questionnaire Data
-                context.Questionnaires.AddRange(
-                     new Questionnaire
-                     {
-                         Template = "Template Text 1",
-                         DocumentTitle = "Document Title 1",
-                         BusinessLineId = 3,
-                         DocumentTypeId = 1,
-                         DocumentStatusId = 1,
-                         SecurityClassificationId = 1,
-                         CreatedOn = DateTime.Parse("2021-06-07"),
-                         ModifiedOn = DateTime.Parse("2021-06-07"),
-                         CreatedBy = "RBOSH",
-                         ModifiedBy = "RBOSH",
-                         ActiveStatus = true,
-                         DocumentVersion = 1,
-                         EffectiveDate = DateTime.Parse("1989-1-11"),
-                         ChangeSummary = "Change Summary Text 1",
-                         OrganisationAccessibility = true,
-                         ParentId = 0
-                     },
-
-                    new Questionnaire
-                    {
-                        Template = "Template Text 2",
-                        DocumentTitle = "Document Title 2",
-                        BusinessLineId = 4,
-                        DocumentTypeId = 2,
-                        DocumentStatusId = 2,
-                        SecurityClassificationId = 2,
-                        CreatedOn = DateTime.Parse("2021-06-07"),
-                        ModifiedOn = DateTime.Parse("2021-06-07"),
-                        CreatedBy = "RBOSH",
-                        ModifiedBy = "RBOSH",
-                        ActiveStatus = true,
-                        DocumentVersion = 1,
-                        EffectiveDate = DateTime.Parse("1989-1-11"),
-                        ChangeSummary = "Change Summary Text 2",
-                        OrganisationAccessibility = true,
-                        ParentId = 0
-                    }
-                );
-                context.SaveChanges();
-            }
-        }
-
+    {        
         public static void Initialize(QuestionnaireContext context)
         {
 
@@ -148,19 +22,27 @@ namespace EQM_GQE.DATA
             context.BusinessLines.AddRange(
                  new BusinessLine
                  {
-                     BusinessName_EN = "BusinessLine1 English",
-                     BusinessName_FR = "BusinessLine1 French",
-                     Abbreviation_EN = "BL1_En",
-                     Abbreviation_FR = "BL1_Fr"
+                     BusinessName_EN = "Aviation Security",
+                     BusinessName_FR = "Sûreté de l'aviation",
+                     Abbreviation_EN = "",
+                     Abbreviation_FR = ""
                  },
 
                  new BusinessLine
                  {
-                     BusinessName_EN = "BusinessLine2 English",
-                     BusinessName_FR = "BusinessLine2 French",
-                     Abbreviation_EN = "BL2_En",
-                     Abbreviation_FR = "BL2_Fr"
-                 }
+                     BusinessName_EN = "Intermodal Surface Security Oversight",
+                     BusinessName_FR = "Surveillance de la sécurité intermodale de surface",
+                     Abbreviation_EN = "",
+                     Abbreviation_FR = ""
+                 },
+
+                new BusinessLine
+                {
+                    BusinessName_EN = "Transportation of Dangerous Goods",
+                    BusinessName_FR = "Transport des marchandises dangereuses",
+                    Abbreviation_EN = "",
+                    Abbreviation_FR = ""
+                }
             );
             context.SaveChanges();
 
@@ -168,14 +50,8 @@ namespace EQM_GQE.DATA
             context.DocumentTypes.AddRange(
                  new DocumentType
                  {
-                     DocumentType_EN = "DocumentType1 English",
-                     DocumentType_FR = "DocumentType1 French"
-                 },
-
-                 new DocumentType
-                 {
-                     DocumentType_EN = "DocumentType2 English",
-                     DocumentType_FR = "DocumentType2 French"
+                     DocumentType_EN = "Inspection",
+                     DocumentType_FR = "Inspection"
                  }
             );
             context.SaveChanges();
@@ -184,14 +60,14 @@ namespace EQM_GQE.DATA
             context.DocumentStatus.AddRange(
                  new DocumentStatus
                  {
-                     DocumentStatus_EN = "DocumentStatus1 English",
-                     DocumentStatus_FR = "DocumentStatus1 French"
+                     DocumentStatus_EN = "Draft",
+                     DocumentStatus_FR = "Projet :"
                  },
 
                  new DocumentStatus
                  {
-                     DocumentStatus_EN = "DocumentStatus2 English",
-                     DocumentStatus_FR = "DocumentStatus2 French"
+                     DocumentStatus_EN = "Published",
+                     DocumentStatus_FR = "Publié sur"
                  }
             );
             context.SaveChanges();
@@ -200,61 +76,67 @@ namespace EQM_GQE.DATA
             context.SecurityClassifications.AddRange(
                  new SecurityClassification
                  {
-                     SecurityClassification_EN = "SecurityClassification1 English",
-                     SecurityClassification_FR = "SecurityClassification1 French"
+                     SecurityClassification_EN = "Unclassified",
+                     SecurityClassification_FR = "Non classifié"
                  },
 
                 new SecurityClassification
                 {
-                    SecurityClassification_EN = "SecurityClassification2 English",
-                    SecurityClassification_FR = "SecurityClassification2 French"
+                    SecurityClassification_EN = "Protected A",
+                    SecurityClassification_FR = "Protégé A"
+                },
+
+                new SecurityClassification
+                {
+                    SecurityClassification_EN = "Protected B",
+                    SecurityClassification_FR = "Protégé B"
                 }
             );
             context.SaveChanges();
 
             //Seed Questionnaire Data
-            context.Questionnaires.AddRange(
-                 new Questionnaire
-                 {
-                     Template = "Template Text 1",
-                     DocumentTitle = "Document Title 1",
-                     BusinessLineId = 3,
-                     DocumentTypeId = 1,
-                     DocumentStatusId = 1,
-                     SecurityClassificationId = 1,
-                     CreatedOn = DateTime.Parse("2021-06-07"),
-                     ModifiedOn = DateTime.Parse("2021-06-07"),
-                     CreatedBy = "RBOSH",
-                     ModifiedBy = "RBOSH",
-                     ActiveStatus = true,
-                     DocumentVersion = 1,
-                     EffectiveDate = DateTime.Parse("1989-1-11"),
-                     ChangeSummary = "Change Summary Text 1",
-                     OrganisationAccessibility = true,
-                     ParentId = 0
-                 },
+            //context.Questionnaires.AddRange(
+            //     new Questionnaire
+            //     {
+            //         Template = "Template Text 1",
+            //         DocumentTitle = "Document Title 1",
+            //         BusinessLineId = 3,
+            //         DocumentTypeId = 1,
+            //         DocumentStatusId = 1,
+            //         SecurityClassificationId = 1,
+            //         CreatedOn = DateTime.Parse("2021-06-07"),
+            //         ModifiedOn = DateTime.Parse("2021-06-07"),
+            //         CreatedBy = "RBOSH",
+            //         ModifiedBy = "RBOSH",
+            //         ActiveStatus = true,
+            //         DocumentVersion = 1,
+            //         EffectiveDate = DateTime.Parse("1989-1-11"),
+            //         ChangeSummary = "Change Summary Text 1",
+            //         OrganisationAccessibility = true,
+            //         ParentId = 0
+            //     },
 
-                new Questionnaire
-                {
-                    Template = "Template Text 2",
-                    DocumentTitle = "Document Title 2",
-                    BusinessLineId = 4,
-                    DocumentTypeId = 2,
-                    DocumentStatusId = 2,
-                    SecurityClassificationId = 2,
-                    CreatedOn = DateTime.Parse("2021-06-07"),
-                    ModifiedOn = DateTime.Parse("2021-06-07"),
-                    CreatedBy = "RBOSH",
-                    ModifiedBy = "RBOSH",
-                    ActiveStatus = true,
-                    DocumentVersion = 1,
-                    EffectiveDate = DateTime.Parse("1989-1-11"),
-                    ChangeSummary = "Change Summary Text 2",
-                    OrganisationAccessibility = true,
-                    ParentId = 0
-                }
-            );
-            context.SaveChanges();
+            //    new Questionnaire
+            //    {
+            //        Template = "Template Text 2",
+            //        DocumentTitle = "Document Title 2",
+            //        BusinessLineId = 4,
+            //        DocumentTypeId = 2,
+            //        DocumentStatusId = 2,
+            //        SecurityClassificationId = 2,
+            //        CreatedOn = DateTime.Parse("2021-06-07"),
+            //        ModifiedOn = DateTime.Parse("2021-06-07"),
+            //        CreatedBy = "RBOSH",
+            //        ModifiedBy = "RBOSH",
+            //        ActiveStatus = true,
+            //        DocumentVersion = 1,
+            //        EffectiveDate = DateTime.Parse("1989-1-11"),
+            //        ChangeSummary = "Change Summary Text 2",
+            //        OrganisationAccessibility = true,
+            //        ParentId = 0
+            //    }
+            //);
+            //context.SaveChanges();
         }
     }
 }    
