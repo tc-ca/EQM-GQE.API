@@ -16,8 +16,8 @@
 
   <ItemGroup>
     <Folder Include="API\" />
-    <Folder Include="Logical\" />
     <Folder Include="Data\" />
+    <Folder Include="Logical\" />
   </ItemGroup>
 
 </Project>

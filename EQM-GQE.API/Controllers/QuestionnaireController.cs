@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using EQM_GQE.API.Models;
+using EQM_GQE.SHARED_RESOURCES.Models;
 
 namespace EQM_GQE.API.Controllers
 {
@@ -41,7 +41,7 @@ namespace EQM_GQE.API.Controllers
             return Enumerable.Range(1, 5).Select(index => new Questionnaire
             {
                 Id = index,
-                DateCreated = DateTime.Now.AddDays(index),
+                CreatedOn = DateTime.Now.AddDays(index),
                 Template = Templates[rng.Next(Templates.Length)]
             })
             .ToArray();
