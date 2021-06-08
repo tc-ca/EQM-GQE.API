@@ -14,6 +14,7 @@ using Microsoft.OpenApi.Models;
 using EQM_GQE.DATA;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace EQM_GQE.API
 {
     public class Startup
@@ -37,7 +38,7 @@ namespace EQM_GQE.API
             services.AddMvc();
             services.AddDbContext<QuestionnaireContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
+            
             //services.AddEntityFrameworkNpgsql().AddDbContext<QuestionnaireContext>(opt =>
             //    opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
         }
@@ -50,6 +51,9 @@ namespace EQM_GQE.API
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EQM_GQE.API v1"));
+
+                //Seed the database - receiving error
+                //SeedData.Initialize(app.ApplicationServices); 
             }
             
             app.UseHttpsRedirection();
