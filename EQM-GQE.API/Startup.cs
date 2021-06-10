@@ -41,7 +41,7 @@ namespace EQM_GQE.API
             //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDbContext<QuestionnaireContext>(options =>
-                    options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+                    options.UseNpgsql(Configuration.GetConnectionString("EQMConnection")));
 
         }
 
