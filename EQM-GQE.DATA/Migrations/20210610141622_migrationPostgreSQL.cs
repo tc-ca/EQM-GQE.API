@@ -1,9 +1,10 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace EQM_GQE.DATA.Migrations
 {
-    public partial class Migration4 : Migration
+    public partial class migrationPostgreSQL : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,11 +13,11 @@ namespace EQM_GQE.DATA.Migrations
                 columns: table => new
                 {
                     BusinessLineId = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    BusinessName_EN = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BusinessName_FR = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Abbreviation_EN = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Abbreviation_FR = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    BusinessName_EN = table.Column<string>(type: "text", nullable: true),
+                    BusinessName_FR = table.Column<string>(type: "text", nullable: true),
+                    Abbreviation_EN = table.Column<string>(type: "text", nullable: true),
+                    Abbreviation_FR = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -28,9 +29,9 @@ namespace EQM_GQE.DATA.Migrations
                 columns: table => new
                 {
                     DocumentStatusId = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DocumentStatus_EN = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DocumentStatus_FR = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    DocumentStatus_EN = table.Column<string>(type: "text", nullable: true),
+                    DocumentStatus_FR = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -42,9 +43,9 @@ namespace EQM_GQE.DATA.Migrations
                 columns: table => new
                 {
                     DocumentTypeId = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DocumentType_EN = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DocumentType_FR = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    DocumentType_EN = table.Column<string>(type: "text", nullable: true),
+                    DocumentType_FR = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -56,9 +57,9 @@ namespace EQM_GQE.DATA.Migrations
                 columns: table => new
                 {
                     SecurityClassificationId = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SecurityClassification_EN = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecurityClassification_FR = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    SecurityClassification_EN = table.Column<string>(type: "text", nullable: true),
+                    SecurityClassification_FR = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -70,22 +71,22 @@ namespace EQM_GQE.DATA.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Template = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DocumentTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Template = table.Column<string>(type: "text", nullable: true),
+                    DocumentTitle = table.Column<string>(type: "text", nullable: true),
                     BusinessLineId = table.Column<long>(type: "bigint", nullable: false),
                     DocumentTypeId = table.Column<long>(type: "bigint", nullable: false),
                     DocumentStatusId = table.Column<long>(type: "bigint", nullable: false),
                     SecurityClassificationId = table.Column<long>(type: "bigint", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ActiveStatus = table.Column<bool>(type: "bit", nullable: false),
-                    DocumentVersion = table.Column<int>(type: "int", nullable: false),
-                    EffectiveDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ChangeSummary = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OrganisationAccessibility = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    ModifiedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    CreatedBy = table.Column<string>(type: "text", nullable: true),
+                    ModifiedBy = table.Column<string>(type: "text", nullable: true),
+                    ActiveStatus = table.Column<bool>(type: "boolean", nullable: false),
+                    DocumentVersion = table.Column<int>(type: "integer", nullable: false),
+                    EffectiveDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    ChangeSummary = table.Column<string>(type: "text", nullable: true),
+                    OrganisationAccessibility = table.Column<bool>(type: "boolean", nullable: false),
                     ParentId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
@@ -110,7 +111,7 @@ namespace EQM_GQE.DATA.Migrations
                         principalColumn: "DocumentTypeId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Questionnaires_SecurityClassifications_SecurityClassificationId",
+                        name: "FK_Questionnaires_SecurityClassifications_SecurityClassificati~",
                         column: x => x.SecurityClassificationId,
                         principalTable: "SecurityClassifications",
                         principalColumn: "SecurityClassificationId",

@@ -36,11 +36,13 @@ namespace EQM_GQE.API
             });
 
             services.AddMvc();
-            services.AddDbContext<QuestionnaireContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             
-            //services.AddEntityFrameworkNpgsql().AddDbContext<QuestionnaireContext>(opt =>
-            //    opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<QuestionnaireContext>(options =>
+            //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDbContext<QuestionnaireContext>(options =>
+                    options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
