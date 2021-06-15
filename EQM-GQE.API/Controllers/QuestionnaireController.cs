@@ -28,19 +28,12 @@ namespace EQM_GQE.API.Controllers
             "{ 'pages': [ { 'name': 'page9', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }", 
             "{ 'pages': [ { 'name': 'page10', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }" 
         };
+        
+        private readonly IQuestionnaireLogic _questionnaireLogic;
 
-        //private readonly ILogger<QuestionnaireController> _logger;
-
-        private readonly IQuestionnaireRepository _questionnaireRepository;
-
-        //public QuestionnaireController(ILogger<QuestionnaireController> logger)
-        //{
-        //    _logger = logger;
-        //}
-
-        public QuestionnaireController(IQuestionnaireRepository questionnaireRepository)
+        public QuestionnaireController(IQuestionnaireLogic questionnaireLogic)
         {
-            _questionnaireRepository = questionnaireRepository;
+            _questionnaireLogic = questionnaireLogic;
         }
 
         [HttpGet]
@@ -59,10 +52,13 @@ namespace EQM_GQE.API.Controllers
         [HttpPost]        
         public async Task<ActionResult> CreateQuestionnaire(Questionnaire oQuestionnaire)
         {
-            IQuestionnaireLogic questionnaireLogic = new QuestionnaireLogic(_questionnaireRepository);
+            var result = await _questionnaireLogic.Add(oQuestionnaire);
+            if (result == 0)
+            {
+                return BadRequest();
+            }
 
-            await questionnaireLogic.Add(oQuestionnaire);
-            return Ok();
+            return Ok(result);
         }
     }
 }

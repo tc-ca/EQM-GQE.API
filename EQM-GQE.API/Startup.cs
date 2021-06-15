@@ -15,6 +15,7 @@ using EQM_GQE.DATA;
 using Microsoft.EntityFrameworkCore;
 using EQM_GQE.DATA.Repositories;
 using EQM_GQE.SHARED_RESOURCES.Interfaces;
+using EQM_GQE.LOGICAL;
 
 namespace EQM_GQE.API
 {
@@ -34,6 +35,7 @@ namespace EQM_GQE.API
                     options.UseNpgsql(Configuration.GetConnectionString("EQMConnection")));
             services.AddScoped<IQuestionnaireContext>(provider => provider.GetService<QuestionnaireContext>());
             services.AddScoped<IQuestionnaireRepository, QuestionnaireRepository>();
+            services.AddScoped<IQuestionnaireLogic, QuestionnaireLogic>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

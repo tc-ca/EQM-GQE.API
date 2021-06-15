@@ -17,7 +17,7 @@ namespace EQM_GQE.LOGICAL
             _questionnaireRepository = questionnaireRepository;
         }
 
-        public async Task Add(Questionnaire oQuestionnaire)
+        public async Task<long> Add(Questionnaire oQuestionnaire)
         {
             Questionnaire questionnaire = new()
             {
@@ -39,7 +39,8 @@ namespace EQM_GQE.LOGICAL
                 ParentId = oQuestionnaire.ParentId
             };
 
-            await _questionnaireRepository.Add(questionnaire);            
+            var id = await _questionnaireRepository.Add(questionnaire);
+            return id;
         }
     }
 }

@@ -9,6 +9,6 @@ namespace EQM_GQE.SHARED_RESOURCES.Interfaces
 {
     public interface IQuestionnaireRepository
     {
-        Task Add(Questionnaire Questionnaire);
+        Task<long> Add(Questionnaire Questionnaire);
     }
 }

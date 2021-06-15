@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace EQM_GQE.DATA.Repositories
@@ -17,10 +18,13 @@ namespace EQM_GQE.DATA.Repositories
             _context  = context;
         }
 
-        public async Task Add(Questionnaire questionnaire)
+        public async Task<long> Add(Questionnaire questionnaire)
         {
-            _context.Questionnaires.Add(questionnaire);
-            await _context.SaveChangesAsync();
+            await _context.Questionnaires.AddAsync(questionnaire, CancellationToken.None);
+            await _context.SaveChangesAsync(CancellationToken.None);
+            return questionnaire.Id;
         }
     }
 }
+
+
