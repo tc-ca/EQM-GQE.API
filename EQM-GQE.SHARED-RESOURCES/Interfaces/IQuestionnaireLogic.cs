@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EQM_GQE.SHARED_RESOURCES.Models;
 
-namespace EQM_GQE.LOGICAL
+namespace EQM_GQE.SHARED_RESOURCES.Interfaces
 {
     public interface IQuestionnaireLogic
     {

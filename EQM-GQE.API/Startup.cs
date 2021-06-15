@@ -14,6 +14,7 @@ using Microsoft.OpenApi.Models;
 using EQM_GQE.DATA;
 using Microsoft.EntityFrameworkCore;
 using EQM_GQE.DATA.Repositories;
+using EQM_GQE.SHARED_RESOURCES.Interfaces;
 
 namespace EQM_GQE.API
 {

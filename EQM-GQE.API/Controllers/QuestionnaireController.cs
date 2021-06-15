@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using EQM_GQE.SHARED_RESOURCES.Models;
-using EQM_GQE.DATA.Repositories;
 using EQM_GQE.LOGICAL;
+using EQM_GQE.SHARED_RESOURCES.Interfaces;
 
 namespace EQM_GQE.API.Controllers
 {

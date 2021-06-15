@@ -1,4 +1,5 @@
-﻿using EQM_GQE.SHARED_RESOURCES.Models;
+﻿using EQM_GQE.SHARED_RESOURCES.Interfaces;
+using EQM_GQE.SHARED_RESOURCES.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
