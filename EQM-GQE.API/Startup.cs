@@ -44,7 +44,7 @@ namespace EQM_GQE.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, QuestionnaireContext questionaireContext)
         {
             if (env.IsDevelopment())
             {
@@ -52,6 +52,8 @@ namespace EQM_GQE.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EQM_GQE.API v1"));
             }
+
+            questionaireContext.Database.Migrate();
             
             app.UseHttpsRedirection();
 
