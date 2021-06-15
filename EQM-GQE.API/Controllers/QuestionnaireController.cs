@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using EQM_GQE.SHARED_RESOURCES.Models;
 using EQM_GQE.DATA.Repositories;
+using EQM_GQE.LOGICAL;
 
 namespace EQM_GQE.API.Controllers
 {
@@ -55,30 +56,12 @@ namespace EQM_GQE.API.Controllers
             .ToArray();
         }
 
-        [HttpPost]
+        [HttpPost]        
         public async Task<ActionResult> CreateQuestionnaire(Questionnaire oQuestionnaire)
         {
-            Questionnaire questionnaire = new ()
-            {
-                Template = oQuestionnaire.Template,
-                DocumentTitle = oQuestionnaire.DocumentTitle,
-                BusinessLineId = oQuestionnaire.BusinessLineId,
-                DocumentTypeId = oQuestionnaire.DocumentTypeId,
-                DocumentStatusId = oQuestionnaire.DocumentStatusId,
-                SecurityClassificationId = oQuestionnaire.SecurityClassificationId,
-                CreatedOn = oQuestionnaire.CreatedOn,
-                ModifiedOn = oQuestionnaire.ModifiedOn,
-                CreatedBy = oQuestionnaire.CreatedBy,
-                ModifiedBy = oQuestionnaire.ModifiedBy,
-                ActiveStatus = oQuestionnaire.ActiveStatus,
-                DocumentVersion = oQuestionnaire.DocumentVersion,
-                EffectiveDate = oQuestionnaire.EffectiveDate,
-                ChangeSummary = oQuestionnaire.ChangeSummary,
-                OrganisationAccessibility = oQuestionnaire.OrganisationAccessibility,
-                ParentId = oQuestionnaire.ParentId
-            };
+            IQuestionnaireLogic questionnaireLogic = new QuestionnaireLogic(_questionnaireRepository);
 
-            await _questionnaireRepository.Add(questionnaire);
+            await questionnaireLogic.Add(oQuestionnaire);
             return Ok();
         }
     }
