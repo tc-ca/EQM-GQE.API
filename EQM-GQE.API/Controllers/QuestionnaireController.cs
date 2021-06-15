@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using EQM_GQE.SHARED_RESOURCES.Models;
+using EQM_GQE.DATA.Repositories;
 
 namespace EQM_GQE.API.Controllers
 {
@@ -27,11 +28,18 @@ namespace EQM_GQE.API.Controllers
             "{ 'pages': [ { 'name': 'page10', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }" 
         };
 
-        private readonly ILogger<QuestionnaireController> _logger;
+        //private readonly ILogger<QuestionnaireController> _logger;
 
-        public QuestionnaireController(ILogger<QuestionnaireController> logger)
+        private readonly IQuestionnaireRepository _questionnaireRepository;
+
+        //public QuestionnaireController(ILogger<QuestionnaireController> logger)
+        //{
+        //    _logger = logger;
+        //}
+
+        public QuestionnaireController(IQuestionnaireRepository questionnaireRepository)
         {
-            _logger = logger;
+            _questionnaireRepository = questionnaireRepository;
         }
 
         [HttpGet]
@@ -45,6 +53,33 @@ namespace EQM_GQE.API.Controllers
                 Template = Templates[rng.Next(Templates.Length)]
             })
             .ToArray();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateQuestionnaire(Questionnaire oQuestionnaire)
+        {
+            Questionnaire questionnaire = new ()
+            {
+                Template = oQuestionnaire.Template,
+                DocumentTitle = oQuestionnaire.DocumentTitle,
+                BusinessLineId = oQuestionnaire.BusinessLineId,
+                DocumentTypeId = oQuestionnaire.DocumentTypeId,
+                DocumentStatusId = oQuestionnaire.DocumentStatusId,
+                SecurityClassificationId = oQuestionnaire.SecurityClassificationId,
+                CreatedOn = oQuestionnaire.CreatedOn,
+                ModifiedOn = oQuestionnaire.ModifiedOn,
+                CreatedBy = oQuestionnaire.CreatedBy,
+                ModifiedBy = oQuestionnaire.ModifiedBy,
+                ActiveStatus = oQuestionnaire.ActiveStatus,
+                DocumentVersion = oQuestionnaire.DocumentVersion,
+                EffectiveDate = oQuestionnaire.EffectiveDate,
+                ChangeSummary = oQuestionnaire.ChangeSummary,
+                OrganisationAccessibility = oQuestionnaire.OrganisationAccessibility,
+                ParentId = oQuestionnaire.ParentId
+            };
+
+            await _questionnaireRepository.Add(questionnaire);
+            return Ok();
         }
     }
 }

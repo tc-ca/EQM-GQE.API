@@ -13,7 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using EQM_GQE.DATA;
 using Microsoft.EntityFrameworkCore;
-
+using EQM_GQE.DATA.Repositories;
 
 namespace EQM_GQE.API
 {
@@ -29,18 +29,17 @@ namespace EQM_GQE.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<QuestionnaireContext>(options =>
+                    options.UseNpgsql(Configuration.GetConnectionString("EQMConnection")));
+            services.AddScoped<IQuestionnaireContext>(provider => provider.GetService<QuestionnaireContext>());
+            services.AddScoped<IQuestionnaireRepository, QuestionnaireRepository>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EQM_GQE.API", Version = "v1" });
             });
-
-            services.AddMvc();
-            services.AddDbContext<QuestionnaireContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            
-            //services.AddEntityFrameworkNpgsql().AddDbContext<QuestionnaireContext>(opt =>
-            //    opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddMvc();           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
