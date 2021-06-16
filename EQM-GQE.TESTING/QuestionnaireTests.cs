@@ -12,9 +12,9 @@ namespace EQM_GQE.TESTING
         [Fact]
         public void QuestionnaireLogicValidator()
         {
-            var questionnaireController = new QuestionnaireController();
+           // var questionnaireController = new QuestionnaireController();
 
-            Mock<IQuestionnaireLogic> postQuestionnaireLogicValidatior = new Mock<IQuestionnaireLogic>();
+           // Mock<IQuestionnaireLogic> postQuestionnaireLogicValidatior = new Mock<IQuestionnaireLogic>();
 
             
         }
