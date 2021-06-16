@@ -24,6 +24,12 @@ namespace EQM_GQE.DATA.Repositories
             await _context.SaveChangesAsync(CancellationToken.None);
             return questionnaire.Id;
         }
+        public async Task<long> Update(Questionnaire questionnaire)
+        {
+            _context.Questionnaires.Update(questionnaire);
+            await _context.SaveChangesAsync(CancellationToken.None);
+            return questionnaire.Id;
+        }
     }
 }
 
