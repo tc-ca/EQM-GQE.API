@@ -53,7 +53,7 @@ namespace EQM_GQE.TESTING
         }
 
         [Fact]
-        public void QuestionnaireLogicValidator()
+        public void AddQuestionnaire_ShouldHaveId_Equal1()
         {
             // Arange           
             QuestionnaireLogic questionnaireLogic = new QuestionnaireLogic(_questionnaireRepository.Object);
