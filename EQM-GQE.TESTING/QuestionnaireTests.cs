@@ -16,10 +16,12 @@ namespace EQM_GQE.TESTING
     {
         
         private Questionnaire _questionnaire;
-        Mock<IQuestionnaireRepository> _questionnaireRepository = new Mock<IQuestionnaireRepository>();
+        Mock<IQuestionnaireRepository> _questionnaireRepository;
 
         public QuestionnaireTests()
         {
+            _questionnaireRepository = new Mock<IQuestionnaireRepository>();
+
             _questionnaire = new Questionnaire()
             {
                 Id = 1,
@@ -46,6 +48,7 @@ namespace EQM_GQE.TESTING
              _questionnaireRepository.Setup(x => x.Add(It.IsAny<Questionnaire>())).ReturnsAsync((Questionnaire q) =>
             {
                 questionnaires.Add(q);
+                q.Id = 1;
                 return q.Id;
             }
              );
