@@ -1,9 +1,5 @@
 ﻿using EQM_GQE.SHARED_RESOURCES.Interfaces;
 using EQM_GQE.SHARED_RESOURCES.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,11 +20,12 @@ namespace EQM_GQE.DATA.Repositories
             await _context.SaveChangesAsync(CancellationToken.None);
             return questionnaire.Id;
         }
-        public async Task<long> Update(Questionnaire questionnaire)
+        public async Task<bool> Update(Questionnaire Questionnaire)
         {
-            _context.Questionnaires.Update(questionnaire);
+            _context.Questionnaires.Update(Questionnaire);
             await _context.SaveChangesAsync(CancellationToken.None);
-            return questionnaire.Id;
+            return true;         
+               
         }
     }
 }

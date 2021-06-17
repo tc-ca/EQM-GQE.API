@@ -61,16 +61,15 @@ namespace EQM_GQE.API.Controllers
             return Ok(result);
         }
 
-        [HttpPut]
-        public async Task<ActionResult> UpdateQuestionnaire(Questionnaire oQuestionnaire)
+        [HttpPut("{id}")]      
+        public async Task<ActionResult> UpdateQuestionnaire(Questionnaire Questionnaire, long id)
         {
-            var result = await _questionnaireLogic.Update(oQuestionnaire);
-            if (result == 0)
+            if (id != Questionnaire.Id)
             {
                 return BadRequest();
             }
-
-            return Ok(result);
+            return await _questionnaireLogic.Update(Questionnaire) ? Ok() : BadRequest();
+          
         }
     }
 }
