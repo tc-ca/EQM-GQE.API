@@ -10,13 +10,11 @@ namespace EQM_GQE.DATA
     {        
         public static void Initialize(QuestionnaireContext context)
         {
-
             // Look for any movies.
-            if (context.Questionnaires.Any())
+            if (context.BusinessLines.Any())
             {
                 return;   // DB has been seeded
             }
-
             
             //Seed Business Line Data
             context.BusinessLines.AddRange(

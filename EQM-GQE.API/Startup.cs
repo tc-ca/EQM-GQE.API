@@ -13,7 +13,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using EQM_GQE.DATA;
 using Microsoft.EntityFrameworkCore;
-
+using EQM_GQE.DATA.Repositories;
+using EQM_GQE.SHARED_RESOURCES.Interfaces;
+using EQM_GQE.LOGICAL;
 
 namespace EQM_GQE.API
 {
@@ -29,22 +31,22 @@ namespace EQM_GQE.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<QuestionnaireContext>(options =>
+                    options.UseNpgsql(Configuration.GetConnectionString("EQMConnection")));
+            services.AddScoped<IQuestionnaireContext>(provider => provider.GetService<QuestionnaireContext>());
+            services.AddScoped<IQuestionnaireRepository, QuestionnaireRepository>();
+            services.AddScoped<IQuestionnaireLogic, QuestionnaireLogic>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EQM_GQE.API", Version = "v1" });
             });
-
-            services.AddMvc();
-            services.AddDbContext<QuestionnaireContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            
-            //services.AddEntityFrameworkNpgsql().AddDbContext<QuestionnaireContext>(opt =>
-            //    opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddMvc();           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, QuestionnaireContext questionaireContext)
         {
             if (env.IsDevelopment())
             {
@@ -52,6 +54,8 @@ namespace EQM_GQE.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EQM_GQE.API v1"));
             }
+
+            questionaireContext.Database.Migrate();
             
             app.UseHttpsRedirection();
 
