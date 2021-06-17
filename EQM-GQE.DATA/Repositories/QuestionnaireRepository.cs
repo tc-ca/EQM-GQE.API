@@ -2,6 +2,9 @@
 using EQM_GQE.SHARED_RESOURCES.Models;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Text;
 
 namespace EQM_GQE.DATA.Repositories
 {
@@ -20,12 +23,18 @@ namespace EQM_GQE.DATA.Repositories
             await _context.SaveChangesAsync(CancellationToken.None);
             return questionnaire.Id;
         }
+
         public async Task<bool> Update(Questionnaire Questionnaire)
         {
             _context.Questionnaires.Update(Questionnaire);
             await _context.SaveChangesAsync(CancellationToken.None);
-            return true;         
-               
+            return true;               
+        }
+
+        public Questionnaire Get(int id)
+        {
+            var result = _context.Questionnaires.FirstOrDefault(o => o.Id == id);
+            return result;
         }
     }
 }
