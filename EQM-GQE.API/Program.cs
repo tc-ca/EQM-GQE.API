@@ -37,7 +37,7 @@ namespace EQM_GQE.API
                     logger.LogError(ex, "An error occurred while seeding the database.");
                 }
             }
-            //End Seed Data
+            //End Seed Data.
 
             host.Run();
         }

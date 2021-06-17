@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EQM-GQE.DATA\EQM-GQE.DATA.csproj" />
+    <ProjectReference Include="..\EQM-GQE.LOGICAL\EQM-GQE.LOGICAL.csproj" />
     <ProjectReference Include="..\EQM-GQE.SHARED-RESOURCES\EQM-GQE.SHARED-RESOURCES.csproj" />
   </ItemGroup>
 

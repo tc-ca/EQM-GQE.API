@@ -5,4 +5,9 @@
     <RootNamespace>EQM_GQE.LOGICAL</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EQM-GQE.DATA\EQM-GQE.DATA.csproj" />
+    <ProjectReference Include="..\EQM-GQE.SHARED-RESOURCES\EQM-GQE.SHARED-RESOURCES.csproj" />
+  </ItemGroup>
+
 </Project>

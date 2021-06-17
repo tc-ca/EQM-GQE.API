@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using EQM_GQE.SHARED_RESOURCES.Models;
+using EQM_GQE.LOGICAL;
+using EQM_GQE.SHARED_RESOURCES.Interfaces;
 
 namespace EQM_GQE.API.Controllers
 {
@@ -26,12 +28,12 @@ namespace EQM_GQE.API.Controllers
             "{ 'pages': [ { 'name': 'page9', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }", 
             "{ 'pages': [ { 'name': 'page10', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }" 
         };
+        
+        private readonly IQuestionnaireLogic _questionnaireLogic;
 
-        private readonly ILogger<QuestionnaireController> _logger;
-
-        public QuestionnaireController(ILogger<QuestionnaireController> logger)
+        public QuestionnaireController(IQuestionnaireLogic questionnaireLogic)
         {
-            _logger = logger;
+            _questionnaireLogic = questionnaireLogic;
         }
 
         [HttpGet]
@@ -45,6 +47,29 @@ namespace EQM_GQE.API.Controllers
                 Template = Templates[rng.Next(Templates.Length)]
             })
             .ToArray();
+        }
+
+        [HttpPost]        
+        public async Task<ActionResult> CreateQuestionnaire(Questionnaire oQuestionnaire)
+        {
+            var result = await _questionnaireLogic.Add(oQuestionnaire);
+            if (result == 0)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPut("{id}")]      
+        public async Task<ActionResult> UpdateQuestionnaire(Questionnaire Questionnaire, long id)
+        {
+            if (id != Questionnaire.Id)
+            {
+                return BadRequest();
+            }
+            return await _questionnaireLogic.Update(Questionnaire) ? Ok() : BadRequest();
+          
         }
     }
 }
