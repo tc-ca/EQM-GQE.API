@@ -21,7 +21,7 @@ namespace EQM_GQE.API.Controllers
             _questionnaireLogic = questionnaireLogic;
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public ActionResult Get(int id)
         {
             var result = _questionnaireLogic.Get(id);
