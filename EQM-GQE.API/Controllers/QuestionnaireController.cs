@@ -11,7 +11,7 @@ using EQM_GQE.SHARED_RESOURCES.Interfaces;
 namespace EQM_GQE.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class QuestionnaireController : ControllerBase
     {     
         private readonly IQuestionnaireLogic _questionnaireLogic;
@@ -21,13 +21,13 @@ namespace EQM_GQE.API.Controllers
             _questionnaireLogic = questionnaireLogic;
         }
 
-        [HttpGet("{id}")]
-        public ActionResult Get(int id)
+        [HttpGet("{id:int}")]
+        public ActionResult GetById(int id)
         {
             var result = _questionnaireLogic.Get(id);
             if (result == null)
             {
-                return Ok("No template found");
+                return BadRequest("Template not found");
             }
 
             return Ok(result);
