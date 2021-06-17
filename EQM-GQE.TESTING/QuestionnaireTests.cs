@@ -1,23 +1,28 @@
 using EQM_GQE.API.Controllers;
+using EQM_GQE.LOGICAL;
 using EQM_GQE.SHARED_RESOURCES.Interfaces;
 using EQM_GQE.SHARED_RESOURCES.Models;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System.Threading.Tasks;
 using Xunit;
+using System.Linq;
+using System.Collections.Generic;
 
 
 namespace EQM_GQE.TESTING
 {
-    
     public class QuestionnaireTests
     {
-        [Fact]
-        public async Task QuestionnaireLogicValidator()
+        
+        private Questionnaire _questionnaire;
+        Mock<IQuestionnaireRepository> _questionnaireRepository = new Mock<IQuestionnaireRepository>();
+
+        public QuestionnaireTests()
         {
-            // Arange
-            Questionnaire questionnaire = new()
+            _questionnaire = new Questionnaire()
             {
+                Id = 1,
                 Template = "Moq Test",
                 DocumentTitle = "Moq Test",
                 BusinessLineId = 1,
@@ -36,20 +41,30 @@ namespace EQM_GQE.TESTING
                 ParentId = 0
             };
 
-            //Mock<IQuestionnaireRepository> postQuestionnaireRepositoryValidatior = new Mock<IQuestionnaireRepository>();
-            Mock<IQuestionnaireLogic> postQuestionnaireLogicValidatior = new Mock<IQuestionnaireLogic>();
+            IList<Questionnaire> questionnaires = new List<Questionnaire>();
 
-            
-            //postQuestionnaireLogicValidatior.re
-            var questionnaireController = new QuestionnaireController(postQuestionnaireLogicValidatior.Object);
+             _questionnaireRepository.Setup(x => x.Add(It.IsAny<Questionnaire>())).ReturnsAsync((Questionnaire q) =>
+            {
+                questionnaires.Add(q);
+                return q.Id;
+            }
+             );
 
+        }
+
+        [Fact]
+        public void QuestionnaireLogicValidator()
+        {
+            // Arange           
+            QuestionnaireLogic questionnaireLogic = new QuestionnaireLogic(_questionnaireRepository.Object);
+           
             // Act
-            ActionResult<long> result = await questionnaireController.CreateQuestionnaire(questionnaire);
+            var result = Task.Run(async () => await questionnaireLogic.Add(_questionnaire)).GetAwaiter().GetResult();
 
 
             // Assert
-            long createdQuestionnaireId = result.Value;
-            Assert.NotEqual(0, createdQuestionnaireId);
+            long createdQuestionnaireId = result;
+            Assert.Equal(1, createdQuestionnaireId);
         }
     }
 }
