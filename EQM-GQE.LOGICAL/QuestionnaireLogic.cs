@@ -42,9 +42,17 @@ namespace EQM_GQE.LOGICAL
             var id = await _questionnaireRepository.Add(questionnaire);
             return id;
         }
+
         public async Task<bool> Update(Questionnaire Questionnaire)
         {                 
             return await _questionnaireRepository.Update(Questionnaire);
+        }
+        
+        public Questionnaire Get(int id)
+        {
+            var questionnaire = _questionnaireRepository.Get(id);
+            return questionnaire;
+
         }
     }
 }
