@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using EQM_GQE.SHARED_RESOURCES.Models;
 
-namespace EQM_GQE.DATA.Repositories
+namespace EQM_GQE.SHARED_RESOURCES.Interfaces
 {
     public interface IQuestionnaireRepository
     {
-        Task Add(Questionnaire Questionnaire);
+        Task<long> Add(Questionnaire Questionnaire);
+        Task<bool> Update(Questionnaire Questionnaire);
     }
 }

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace EQM_GQE.DATA
+namespace EQM_GQE.SHARED_RESOURCES.Interfaces
 {
     public interface IQuestionnaireContext
     {

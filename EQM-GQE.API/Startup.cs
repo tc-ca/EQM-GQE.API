@@ -14,6 +14,8 @@ using Microsoft.OpenApi.Models;
 using EQM_GQE.DATA;
 using Microsoft.EntityFrameworkCore;
 using EQM_GQE.DATA.Repositories;
+using EQM_GQE.SHARED_RESOURCES.Interfaces;
+using EQM_GQE.LOGICAL;
 
 namespace EQM_GQE.API
 {
@@ -33,6 +35,7 @@ namespace EQM_GQE.API
                     options.UseNpgsql(Configuration.GetConnectionString("EQMConnection")));
             services.AddScoped<IQuestionnaireContext>(provider => provider.GetService<QuestionnaireContext>());
             services.AddScoped<IQuestionnaireRepository, QuestionnaireRepository>();
+            services.AddScoped<IQuestionnaireLogic, QuestionnaireLogic>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -43,7 +46,7 @@ namespace EQM_GQE.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, QuestionnaireContext questionaireContext)
         {
             if (env.IsDevelopment())
             {
@@ -51,6 +54,8 @@ namespace EQM_GQE.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EQM_GQE.API v1"));
             }
+
+            questionaireContext.Database.Migrate();
             
             app.UseHttpsRedirection();
 

@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using EQM_GQE.SHARED_RESOURCES.Models;
-using EQM_GQE.DATA.Repositories;
+using EQM_GQE.LOGICAL;
+using EQM_GQE.SHARED_RESOURCES.Interfaces;
 
 namespace EQM_GQE.API.Controllers
 {
@@ -27,19 +28,12 @@ namespace EQM_GQE.API.Controllers
             "{ 'pages': [ { 'name': 'page9', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }", 
             "{ 'pages': [ { 'name': 'page10', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }" 
         };
+        
+        private readonly IQuestionnaireLogic _questionnaireLogic;
 
-        //private readonly ILogger<QuestionnaireController> _logger;
-
-        private readonly IQuestionnaireRepository _questionnaireRepository;
-
-        //public QuestionnaireController(ILogger<QuestionnaireController> logger)
-        //{
-        //    _logger = logger;
-        //}
-
-        public QuestionnaireController(IQuestionnaireRepository questionnaireRepository)
+        public QuestionnaireController(IQuestionnaireLogic questionnaireLogic)
         {
-            _questionnaireRepository = questionnaireRepository;
+            _questionnaireLogic = questionnaireLogic;
         }
 
         [HttpGet]
@@ -55,31 +49,27 @@ namespace EQM_GQE.API.Controllers
             .ToArray();
         }
 
-        [HttpPost]
+        [HttpPost]        
         public async Task<ActionResult> CreateQuestionnaire(Questionnaire oQuestionnaire)
         {
-            Questionnaire questionnaire = new ()
+            var result = await _questionnaireLogic.Add(oQuestionnaire);
+            if (result == 0)
             {
-                Template = oQuestionnaire.Template,
-                DocumentTitle = oQuestionnaire.DocumentTitle,
-                BusinessLineId = oQuestionnaire.BusinessLineId,
-                DocumentTypeId = oQuestionnaire.DocumentTypeId,
-                DocumentStatusId = oQuestionnaire.DocumentStatusId,
-                SecurityClassificationId = oQuestionnaire.SecurityClassificationId,
-                CreatedOn = oQuestionnaire.CreatedOn,
-                ModifiedOn = oQuestionnaire.ModifiedOn,
-                CreatedBy = oQuestionnaire.CreatedBy,
-                ModifiedBy = oQuestionnaire.ModifiedBy,
-                ActiveStatus = oQuestionnaire.ActiveStatus,
-                DocumentVersion = oQuestionnaire.DocumentVersion,
-                EffectiveDate = oQuestionnaire.EffectiveDate,
-                ChangeSummary = oQuestionnaire.ChangeSummary,
-                OrganisationAccessibility = oQuestionnaire.OrganisationAccessibility,
-                ParentId = oQuestionnaire.ParentId
-            };
+                return BadRequest();
+            }
 
-            await _questionnaireRepository.Add(questionnaire);
-            return Ok();
+            return Ok(result);
+        }
+
+        [HttpPut("{id}")]      
+        public async Task<ActionResult> UpdateQuestionnaire(Questionnaire Questionnaire, long id)
+        {
+            if (id != Questionnaire.Id)
+            {
+                return BadRequest();
+            }
+            return await _questionnaireLogic.Update(Questionnaire) ? Ok() : BadRequest();
+          
         }
     }
 }
