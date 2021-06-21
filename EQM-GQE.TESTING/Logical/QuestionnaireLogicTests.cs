@@ -155,17 +155,17 @@ namespace EQM_GQE.TESTING
 
         //Happy Path
         [Fact]
-        public void UpdateQuestionnaire_ShouldExist()
+        public void UpdateQuestionnaire_ShouldHaveTitle_Test()
         {
             // Arange               
             var q = _questionnaireLogic.Get(1);
             // Act
-            q.DocumentTitle = "test";
+            q.DocumentTitle = "Test";
             var flag = Task.Run(async () => await _questionnaireLogic.Update(q)).GetAwaiter().GetResult();
 
             // Assert
             var result = _questionnaireLogic.Get(1);
-            result.DocumentTitle.Should().Be("test");
+            result.DocumentTitle.Should().Be("Test");
         }
     }
 }
