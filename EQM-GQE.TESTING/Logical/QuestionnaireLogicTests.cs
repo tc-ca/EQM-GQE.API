@@ -16,15 +16,16 @@ namespace EQM_GQE.TESTING
 {
     public class QuestionnaireLogicTests
     {
-        
-        private Questionnaire _questionnaire;
-        Mock<IQuestionnaireRepository> _questionnaireRepository;
 
+        private Mock<IQuestionnaireRepository> _questionnaireRepository;
         private IList<Questionnaire> _questionnaires; 
-
+        private QuestionnaireLogic _questionnaireLogic;
+        private int maxId;
+        
         public QuestionnaireLogicTests()
         {
-           long id = 1;
+           maxId = 2;
+           
            _questionnaires = new List<Questionnaire>()
            {
             new Questionnaire
@@ -69,79 +70,102 @@ namespace EQM_GQE.TESTING
             }
         };
             _questionnaireRepository = new Mock<IQuestionnaireRepository>();
-            _questionnaire = _questionnaires.Where(q => q.Id == id).FirstOrDefault();
-            _questionnaireRepository.Setup(x => x.Update(_questionnaire)).ReturnsAsync((true));
+            _questionnaireRepository.Setup(x => x.Update(It.IsAny<Questionnaire>())).ReturnsAsync((true));
         
              _questionnaireRepository.Setup(x => x.Add(It.IsAny<Questionnaire>())).ReturnsAsync((Questionnaire q) =>
             {
+                q.Id = maxId + 1;
                 _questionnaires.Add(q);
-                q.Id = 1;
                 return q.Id;
             }
              );
 
              _questionnaireRepository.Setup(x => x.Get(It.IsAny<int>())).Returns((int id) => 
-             {
+             {                    
                     var result = _questionnaires.Where(q => q.Id == id).FirstOrDefault();
                     return result;
              });
-
+             
+            _questionnaireLogic = new QuestionnaireLogic(_questionnaireRepository.Object);
         }
 
+        //Happy Path
         [Fact]
         public void GetQuestionnaire_ShouldGet_MoqTest2()
         {
         //Arrange
-        QuestionnaireLogic questionnaireLogic = new QuestionnaireLogic(_questionnaireRepository.Object);
+        
         
         //Act
-        var result = questionnaireLogic.Get(2);
+        var result = _questionnaireLogic.Get(2);
         
         //Assert
         result.DocumentTitle.Should().Be("Moq Test 2");
         }
 
+        //Null Path
         [Fact]
         public void GetQuestionnaire_ShouldBe_NotFound()
         {
         //Arrange
-        QuestionnaireLogic questionnaireLogic = new QuestionnaireLogic(_questionnaireRepository.Object);
+        QuestionnaireLogic _questionnaireLogic = new QuestionnaireLogic(_questionnaireRepository.Object);
         
         //Act
-        var result = questionnaireLogic.Get(100);
+        var result = _questionnaireLogic.Get(100);
         
         //Assert
         result.Should().Be(null);
         }
 
+        //Happy Path
         [Fact]
-        public void AddQuestionnaire_ShouldHaveId_Equal1()
+        public void AddQuestionnaire_ShouldHave_NewQuestionnaire()
         {
-            // Arange           
-            QuestionnaireLogic questionnaireLogic = new QuestionnaireLogic(_questionnaireRepository.Object);
+            // Arange  
+            var newid = maxId + 1;
+
+            var q = new Questionnaire{
+                Template = "Post",
+                DocumentTitle = "Post",
+                BusinessLineId = 1,
+                DocumentTypeId = 1,
+                DocumentStatusId = 1,
+                SecurityClassificationId = 1,
+                CreatedOn = System.DateTime.Now,
+                ModifiedOn = System.DateTime.Now,
+                CreatedBy = "MOULAST",
+                ModifiedBy = "MOULAST",
+                ActiveStatus = true,
+                DocumentVersion = 1,
+                EffectiveDate = System.DateTime.Now,
+                ChangeSummary = "Post Test",
+                OrganisationAccessibility = true,
+                ParentId = 0
+            };
+
+            var id = Task.Run(async () => await _questionnaireLogic.Add(q)).GetAwaiter().GetResult();
            
             // Act
-            var result = Task.Run(async () => await questionnaireLogic.Add(_questionnaire)).GetAwaiter().GetResult();
+            var result = _questionnaireLogic.Get(newid);
 
 
             // Assert
-            long createdQuestionnaireId = result;
-            Assert.Equal(1, createdQuestionnaireId);
+            result.CreatedBy.Should().Be("MOULAST");
         }
 
-         [Fact]
+        //Happy Path
+        [Fact]
         public void UpdateQuestionnaire_ShouldExist()
         {
             // Arange               
-            QuestionnaireLogic questionnaireLogic = new QuestionnaireLogic(_questionnaireRepository.Object);
-
+            var q = _questionnaireLogic.Get(1);
             // Act
-            _questionnaire.DocumentTitle = "test";
-            var result = Task.Run(async () => await questionnaireLogic.Update(_questionnaire)).GetAwaiter().GetResult();
+            q.DocumentTitle = "test";
+            var flag = Task.Run(async () => await _questionnaireLogic.Update(q)).GetAwaiter().GetResult();
 
             // Assert
-            bool updatedQuestionnaire = result;
-            Assert.True(updatedQuestionnaire);
+            var result = _questionnaireLogic.Get(1);
+            result.DocumentTitle.Should().Be("test");
         }
     }
 }
