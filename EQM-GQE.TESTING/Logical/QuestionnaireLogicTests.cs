@@ -79,6 +79,12 @@ namespace EQM_GQE.TESTING
             }
              );
 
+             _questionnaireRepository.Setup(x => x.Get(It.IsAny<int>())).Returns((int id) => 
+             {
+                    var result = _questionnaires.Where(q => q.Id == id).FirstOrDefault();
+                    return result;
+             });
+
         }
 
         [Fact]
