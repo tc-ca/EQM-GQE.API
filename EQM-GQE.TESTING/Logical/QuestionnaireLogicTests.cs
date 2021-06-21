@@ -1,4 +1,4 @@
-﻿using EQM_GQE.API.Controllers;
+using EQM_GQE.API.Controllers;
 using EQM_GQE.LOGICAL;
 using EQM_GQE.SHARED_RESOURCES.Interfaces;
 using EQM_GQE.SHARED_RESOURCES.Models;
@@ -10,16 +10,22 @@ using System.Linq;
 using System.Collections.Generic;
 
 
+
 namespace EQM_GQE.TESTING
 {
-    public class QuestionnaireUpdateTests
+    public class QuestionnaireLogicTests
     {
-
+        
         private Questionnaire _questionnaire;
         Mock<IQuestionnaireRepository> _questionnaireRepository;
-        //  Questionnaire q;
-        private IQueryable<Questionnaire> _questionnaires => new[]
-       {
+
+        private IList<Questionnaire> _questionnaires; 
+
+        public QuestionnaireLogicTests()
+        {
+           long id = 1;
+           _questionnaires = new List<Questionnaire>()
+           {
             new Questionnaire
             {
                Id = 1,
@@ -60,17 +66,37 @@ namespace EQM_GQE.TESTING
                 OrganisationAccessibility = false,
                 ParentId = 0
             }
-        }.AsQueryable();
-
-        public QuestionnaireUpdateTests()
-        {
-            long id = 1;
+        };
             _questionnaireRepository = new Mock<IQuestionnaireRepository>();
             _questionnaire = _questionnaires.Where(q => q.Id == id).FirstOrDefault();
             _questionnaireRepository.Setup(x => x.Update(_questionnaire)).ReturnsAsync((true));
+        
+             _questionnaireRepository.Setup(x => x.Add(It.IsAny<Questionnaire>())).ReturnsAsync((Questionnaire q) =>
+            {
+                _questionnaires.Add(q);
+                q.Id = 1;
+                return q.Id;
+            }
+             );
+
         }
 
         [Fact]
+        public void AddQuestionnaire_ShouldHaveId_Equal1()
+        {
+            // Arange           
+            QuestionnaireLogic questionnaireLogic = new QuestionnaireLogic(_questionnaireRepository.Object);
+           
+            // Act
+            var result = Task.Run(async () => await questionnaireLogic.Add(_questionnaire)).GetAwaiter().GetResult();
+
+
+            // Assert
+            long createdQuestionnaireId = result;
+            Assert.Equal(1, createdQuestionnaireId);
+        }
+
+         [Fact]
         public void UpdateQuestionnaire_ShouldExist()
         {
             // Arange               
