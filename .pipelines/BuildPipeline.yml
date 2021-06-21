@@ -22,6 +22,11 @@ steps:
     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: True
 
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: '**/EQM-GQE.TESTING.csproj'
+
 - task: PublishBuildArtifacts@1
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
