@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Xunit;
 using System.Linq;
 using System.Collections.Generic;
+using FluentAssertions;
 
 
 
@@ -85,6 +86,32 @@ namespace EQM_GQE.TESTING
                     return result;
              });
 
+        }
+
+        [Fact]
+        public void GetQuestionnaire_ShouldGet_MoqTest2()
+        {
+        //Arrange
+        QuestionnaireLogic questionnaireLogic = new QuestionnaireLogic(_questionnaireRepository.Object);
+        
+        //Act
+        var result = questionnaireLogic.Get(2);
+        
+        //Assert
+        result.DocumentTitle.Should().Be("Moq Test 2");
+        }
+
+        [Fact]
+        public void GetQuestionnaire_ShouldBe_NotFound()
+        {
+        //Arrange
+        QuestionnaireLogic questionnaireLogic = new QuestionnaireLogic(_questionnaireRepository.Object);
+        
+        //Act
+        var result = questionnaireLogic.Get(100);
+        
+        //Assert
+        result.Should().Be(null);
         }
 
         [Fact]
