@@ -70,7 +70,13 @@ namespace EQM_GQE.TESTING
             }
         };
             _questionnaireRepository = new Mock<IQuestionnaireRepository>();
-            _questionnaireRepository.Setup(x => x.Update(It.IsAny<Questionnaire>())).ReturnsAsync((true));
+            _questionnaireRepository.Setup(x => x.Update(It.IsAny<Questionnaire>())).ReturnsAsync((Questionnaire q) =>
+                {
+                    var toRemove = _questionnaires.FirstOrDefault(x => x.Id == q.Id);
+                    _questionnaires.Remove(toRemove);
+                    _questionnaires.Add(q);
+                    return true;
+            });
         
              _questionnaireRepository.Setup(x => x.Add(It.IsAny<Questionnaire>())).ReturnsAsync((Questionnaire q) =>
             {
