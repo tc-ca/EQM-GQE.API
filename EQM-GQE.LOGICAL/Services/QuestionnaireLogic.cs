@@ -22,11 +22,8 @@ namespace EQM_GQE.LOGICAL
             Questionnaire questionnaire = new()
             {
                 Template = oQuestionnaire.Template,
-                DocumentTitle = oQuestionnaire.DocumentTitle,
-                BusinessLineId = oQuestionnaire.BusinessLineId,
-                DocumentTypeId = oQuestionnaire.DocumentTypeId,
-                DocumentStatusId = oQuestionnaire.DocumentStatusId,
-                SecurityClassificationId = oQuestionnaire.SecurityClassificationId,
+                DocumentTitle_EN = oQuestionnaire.DocumentTitle_EN,
+                DocumentTitle_FR = oQuestionnaire.DocumentTitle_FR,
                 CreatedOn = oQuestionnaire.CreatedOn,
                 ModifiedOn = oQuestionnaire.ModifiedOn,
                 CreatedBy = oQuestionnaire.CreatedBy,
@@ -34,7 +31,8 @@ namespace EQM_GQE.LOGICAL
                 ActiveStatus = oQuestionnaire.ActiveStatus,
                 DocumentVersion = oQuestionnaire.DocumentVersion,
                 EffectiveDate = oQuestionnaire.EffectiveDate,
-                ChangeSummary = oQuestionnaire.ChangeSummary,
+                ChangeSummary_EN = oQuestionnaire.ChangeSummary_EN,
+                ChangeSummary_FR = oQuestionnaire.ChangeSummary_FR,
                 OrganisationAccessibility = oQuestionnaire.OrganisationAccessibility,
                 ParentId = oQuestionnaire.ParentId
             };
