@@ -17,7 +17,7 @@ namespace EQM_GQE.LOGICAL
             _questionnaireRepository = questionnaireRepository;
         }
 
-        public async Task<long> Add(Questionnaire oQuestionnaire)
+        public async Task<int> Add(Questionnaire oQuestionnaire)
         {
             Questionnaire questionnaire = new()
             {
