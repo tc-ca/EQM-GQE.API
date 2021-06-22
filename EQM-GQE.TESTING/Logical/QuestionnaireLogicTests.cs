@@ -127,14 +127,14 @@ namespace EQM_GQE.TESTING
 
         //Happy Path
         [Fact]
-        public void GetAllAsync_ShouldHave_Count3()
+        public void GetAllAsync_ShouldHave_Count2()
         {
             //Arange
             
             //Act
             var list = Task.Run(async () => await _questionnaireLogic.GetAllAsync()).GetAwaiter().GetResult();
             //Assert
-            list.Count.Should().Be(3);
+            list.Count.Should().Be(2);
         }
 
         //Happy Path
