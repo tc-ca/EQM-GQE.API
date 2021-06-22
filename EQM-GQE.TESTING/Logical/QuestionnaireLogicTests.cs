@@ -91,6 +91,8 @@ namespace EQM_GQE.TESTING
                     var result = _questionnaires.Where(q => q.Id == id).FirstOrDefault();
                     return result;
              });
+
+            _questionnaireRepository.Setup(x => x.GetAllAsync()).ReturnsAsync((List<Questionnaire>)_questionnaires);
              
             _questionnaireLogic = new QuestionnaireLogic(_questionnaireRepository.Object);
         }
@@ -121,6 +123,18 @@ namespace EQM_GQE.TESTING
         
         //Assert
         result.Should().Be(null);
+        }
+
+        //Happy Path
+        [Fact]
+        public void GetAllAsync_ShouldHave_Count3()
+        {
+            //Arange
+            
+            //Act
+            var list = Task.Run(async () => await _questionnaireLogic.GetAllAsync()).GetAwaiter().GetResult();
+            //Assert
+            list.Count.Should().Be(3);
         }
 
         //Happy Path
