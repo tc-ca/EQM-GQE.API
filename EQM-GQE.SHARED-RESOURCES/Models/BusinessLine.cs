@@ -7,7 +7,7 @@ namespace EQM_GQE.SHARED_RESOURCES.Models
     public class BusinessLine
     {
         [Column("BUSINESS_LINE_CD")]
-        public long BusinessLineId { get; set; }
+        public int BusinessLineId { get; set; }
         
         [Column("BUSINESS_NAME_ENM")]
         public string BusinessName_EN { get; set; }

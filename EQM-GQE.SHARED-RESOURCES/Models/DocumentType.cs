@@ -7,7 +7,7 @@ namespace EQM_GQE.SHARED_RESOURCES.Models
     public class DocumentType
     {
         [Column("DOCUMENT_TYPE_CD")]
-        public long DocumentTypeId { get; set; }
+        public int DocumentTypeId { get; set; }
         
         [Column("DOCUMENT_TYPE_ELBL")]
         public string DocumentType_EN { get; set; }

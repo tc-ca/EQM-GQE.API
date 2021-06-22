@@ -7,7 +7,7 @@ namespace EQM_GQE.SHARED_RESOURCES.Models
     public class Questionnaire
     {   
         [Column("QUESTIONNAIRE_TEMPLATE_ID")]     
-        public long Id { get; set; }        
+        public int Id { get; set; }        
 
         [Column("TEMPLATE_TXT")]
         public string Template { get; set; }
@@ -64,7 +64,7 @@ namespace EQM_GQE.SHARED_RESOURCES.Models
         public Boolean OrganisationAccessibility { get; set; }
         
         [Column("PARENT_TEMPLATE_ID")]  
-        public long ParentId { get; set; }        
+        public int ParentId { get; set; }        
 
     }
 }

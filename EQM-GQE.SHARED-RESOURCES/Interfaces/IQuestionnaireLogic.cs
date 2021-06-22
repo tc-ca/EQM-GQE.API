@@ -16,5 +16,7 @@ namespace EQM_GQE.SHARED_RESOURCES.Interfaces
         Questionnaire Get(int id);
 
         Task<List<Questionnaire>> GetAllAsync();
+
+        IList<Questionnaire> GetWithHistory(int id);
     }
 }

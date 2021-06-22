@@ -7,7 +7,7 @@ namespace EQM_GQE.SHARED_RESOURCES.Models
     public class SecurityClassification
     {
         [Column("SECURITY_CLASSIFICATION_CD")]
-        public long SecurityClassificationId { get; set; }
+        public int SecurityClassificationId { get; set; }
         
         [Column("CLASSIFICATION_ELBL")]
         public string SecurityClassification_EN { get; set; }

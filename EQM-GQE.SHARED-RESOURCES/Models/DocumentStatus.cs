@@ -7,7 +7,7 @@ namespace EQM_GQE.SHARED_RESOURCES.Models
     public class DocumentStatus
     {
         [Column("DOCUMENT_STATUS_CD")]
-        public long DocumentStatusId { get; set; }
+        public int DocumentStatusId { get; set; }
         
         [Column("DOCUMENT_STATUS_ELBL")]
         public string DocumentStatus_EN { get; set; }

@@ -52,6 +52,18 @@ namespace EQM_GQE.LOGICAL
             return questionnaire;
         }
 
+         public IList<Questionnaire> GetWithHistory(int id)
+        {
+            var list = new List<Questionnaire>();
+            var questionnaire = _questionnaireRepository.Get(id);
+            list.Add(questionnaire);
+            if (questionnaire != null){
+                list.AddRange(GetWithHistory(questionnaire.ParentId));
+            }
+
+            return list;
+        }
+
         public async Task<List<Questionnaire>> GetAllAsync()
         {
             var questionnaires = await _questionnaireRepository.GetAllAsync();            
