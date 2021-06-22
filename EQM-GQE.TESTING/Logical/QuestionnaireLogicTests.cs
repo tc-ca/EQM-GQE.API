@@ -181,5 +181,17 @@ namespace EQM_GQE.TESTING
             var result = _questionnaireLogic.Get(1);
             result.DocumentTitle_EN.Should().Be("Test");
         }
+
+        //Happy Path
+        [Fact]
+        public void GetWithHistory_ShouldHave_Count5()
+        {
+            //Arrange
+
+            //Act
+
+            //Assert
+            
+        }
     }
 }
