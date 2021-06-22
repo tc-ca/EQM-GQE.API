@@ -50,7 +50,12 @@ namespace EQM_GQE.LOGICAL
         {
             var questionnaire = _questionnaireRepository.Get(id);
             return questionnaire;
+        }
 
+        public async Task<List<Questionnaire>> GetAllAsync()
+        {
+            var questionnaires = await _questionnaireRepository.GetAllAsync();            
+            return questionnaires;
         }
     }
 }
