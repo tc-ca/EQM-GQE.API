@@ -14,5 +14,7 @@ namespace EQM_GQE.SHARED_RESOURCES.Interfaces
         Task<bool> Update(Questionnaire Questionnaire);
 
         Questionnaire Get(int id);
+
+        Task<List<Questionnaire>> GetAllAsync();
     }
 }
