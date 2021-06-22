@@ -56,8 +56,8 @@ namespace EQM_GQE.LOGICAL
         {
             var list = new List<Questionnaire>();
             var questionnaire = _questionnaireRepository.Get(id);
-            list.Add(questionnaire);
             if (questionnaire != null){
+                list.Add(questionnaire);
                 list.AddRange(GetWithHistory(questionnaire.ParentId));
             }
 
