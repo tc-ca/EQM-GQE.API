@@ -55,5 +55,17 @@ namespace EQM_GQE.API.Controllers
             return await _questionnaireLogic.Update(Questionnaire) ? Ok() : BadRequest();
           
         }
+
+        [HttpGet]
+        public async Task<ActionResult<List<Questionnaire>>> GetAll()
+        {
+            var result = await _questionnaireLogic.GetAllAsync();
+            if (result == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
     }
 }
