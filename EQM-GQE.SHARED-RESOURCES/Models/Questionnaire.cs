@@ -8,7 +8,8 @@ namespace EQM_GQE.SHARED_RESOURCES.Models
 
         public string Template { get; set; }
 
-        public string DocumentTitle { get; set; }
+        public string DocumentTitle_EN { get; set; }
+        public string DocumentTitle_FR { get; set; }
 
         public BusinessLine BusinessLine { get; set; }
 
@@ -40,7 +41,8 @@ namespace EQM_GQE.SHARED_RESOURCES.Models
 
         public DateTime EffectiveDate { get; set; }
 
-        public string ChangeSummary { get; set; }
+        public string ChangeSummary_EN { get; set; }
+        public string ChangeSummary_FR { get; set; }
 
         public Boolean OrganisationAccessibility { get; set; }
 
