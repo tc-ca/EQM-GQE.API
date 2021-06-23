@@ -18,7 +18,7 @@ namespace EQM_GQE.DATA.Repositories
             _context  = context;
         }
 
-        public async Task<long> Add(Questionnaire questionnaire)
+        public async Task<int> Add(Questionnaire questionnaire)
         {
             await _context.Questionnaires.AddAsync(questionnaire, CancellationToken.None);
             await _context.SaveChangesAsync(CancellationToken.None);

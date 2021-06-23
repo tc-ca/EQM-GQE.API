@@ -9,12 +9,14 @@ namespace EQM_GQE.SHARED_RESOURCES.Interfaces
 {
     public interface IQuestionnaireLogic
     {
-        Task<long> Add(Questionnaire Questionnaire);
+        Task<int> Add(Questionnaire Questionnaire);
 
         Task<bool> Update(Questionnaire Questionnaire);
 
         Questionnaire Get(int id);
 
         Task<List<Questionnaire>> GetAllAsync();
+
+        IList<Questionnaire> GetWithHistory(int id);
     }
 }
