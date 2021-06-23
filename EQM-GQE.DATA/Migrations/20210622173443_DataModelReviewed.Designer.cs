@@ -3,15 +3,17 @@ using System;
 using EQM_GQE.DATA;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace EQM_GQE.DATA.Migrations
 {
     [DbContext(typeof(QuestionnaireContext))]
-    partial class QuestionnaireContextModelSnapshot : ModelSnapshot
+    [Migration("20210622173443_DataModelReviewed")]
+    partial class DataModelReviewed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,9 +23,9 @@ namespace EQM_GQE.DATA.Migrations
 
             modelBuilder.Entity("EQM_GQE.SHARED_RESOURCES.Models.BusinessLine", b =>
                 {
-                    b.Property<int>("BusinessLineId")
+                    b.Property<long>("BusinessLineId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("bigint")
                         .HasColumnName("BUSINESS_LINE_CD")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
@@ -62,9 +64,9 @@ namespace EQM_GQE.DATA.Migrations
 
             modelBuilder.Entity("EQM_GQE.SHARED_RESOURCES.Models.DocumentStatus", b =>
                 {
-                    b.Property<int>("DocumentStatusId")
+                    b.Property<long>("DocumentStatusId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("bigint")
                         .HasColumnName("DOCUMENT_STATUS_CD")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
@@ -95,9 +97,9 @@ namespace EQM_GQE.DATA.Migrations
 
             modelBuilder.Entity("EQM_GQE.SHARED_RESOURCES.Models.DocumentType", b =>
                 {
-                    b.Property<int>("DocumentTypeId")
+                    b.Property<long>("DocumentTypeId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("bigint")
                         .HasColumnName("DOCUMENT_TYPE_CD")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
@@ -128,9 +130,9 @@ namespace EQM_GQE.DATA.Migrations
 
             modelBuilder.Entity("EQM_GQE.SHARED_RESOURCES.Models.Questionnaire", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("bigint")
                         .HasColumnName("QUESTIONNAIRE_TEMPLATE_ID")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
@@ -138,8 +140,8 @@ namespace EQM_GQE.DATA.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("ACTIVE_STATUS_IND");
 
-                    b.Property<int?>("BusinessLineId")
-                        .HasColumnType("integer");
+                    b.Property<long?>("BusinessLineId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("ChangeSummary_EN")
                         .HasColumnType("text")
@@ -150,7 +152,6 @@ namespace EQM_GQE.DATA.Migrations
                         .HasColumnName("CHANGE_SUMMARY_TXT_FR");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("USER_CREATE_ID");
 
@@ -162,33 +163,27 @@ namespace EQM_GQE.DATA.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("DATE_DELETED_DTE");
 
-                    b.Property<int?>("DocumentStatusId")
-                        .HasColumnType("integer");
+                    b.Property<long?>("DocumentStatusId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("DocumentTitle_EN")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("DOCUMENT_TITLE_TXT_EN");
 
                     b.Property<string>("DocumentTitle_FR")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("DOCUMENT_TITLE_TXT_FR");
 
-                    b.Property<int?>("DocumentTypeId")
-                        .HasColumnType("integer");
+                    b.Property<long?>("DocumentTypeId")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("DocumentVersion")
                         .HasColumnType("integer")
                         .HasColumnName("DOCUMENT_VERSION_NUM");
 
-                    b.Property<DateTime>("EffectiveFromDate")
+                    b.Property<DateTime>("EffectiveDate")
                         .HasColumnType("timestamp without time zone")
-                        .HasColumnName("EFFECTIVE_FROM_DATE_DTE");
-
-                    b.Property<DateTime>("EffectiveToDate")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("EFFECTIVE_TO_DATE_DTE");
+                        .HasColumnName("EFFECTIVE_DATE_DTE");
 
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("text")
@@ -202,15 +197,14 @@ namespace EQM_GQE.DATA.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("ORGANIZATION_ACCESSIBILITY_IND");
 
-                    b.Property<int>("ParentId")
-                        .HasColumnType("integer")
+                    b.Property<long>("ParentId")
+                        .HasColumnType("bigint")
                         .HasColumnName("PARENT_TEMPLATE_ID");
 
-                    b.Property<int?>("SecurityClassificationId")
-                        .HasColumnType("integer");
+                    b.Property<long?>("SecurityClassificationId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Template")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("TEMPLATE_TXT");
 
@@ -229,9 +223,9 @@ namespace EQM_GQE.DATA.Migrations
 
             modelBuilder.Entity("EQM_GQE.SHARED_RESOURCES.Models.SecurityClassification", b =>
                 {
-                    b.Property<int>("SecurityClassificationId")
+                    b.Property<long>("SecurityClassificationId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("bigint")
                         .HasColumnName("SECURITY_CLASSIFICATION_CD")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 

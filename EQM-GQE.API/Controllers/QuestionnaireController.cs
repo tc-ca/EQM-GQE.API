@@ -33,6 +33,32 @@ namespace EQM_GQE.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("{id:int}/history")]
+        public ActionResult<List<Questionnaire>> GetWithHistoryById(int id)
+        {
+            var result = _questionnaireLogic.GetWithHistory(id);
+            if (result == null)
+            {
+                return BadRequest("Template not found");
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<Questionnaire>>> GetAll()
+        {
+            var result = await _questionnaireLogic.GetAllAsync();
+            if (result == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
+
+        
+
         [HttpPost]        
         public async Task<ActionResult> CreateQuestionnaire(Questionnaire oQuestionnaire)
         {
@@ -54,18 +80,6 @@ namespace EQM_GQE.API.Controllers
             }
             return await _questionnaireLogic.Update(Questionnaire) ? Ok() : BadRequest();
           
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<List<Questionnaire>>> GetAll()
-        {
-            var result = await _questionnaireLogic.GetAllAsync();
-            if (result == null)
-            {
-                return BadRequest();
-            }
-
-            return Ok(result);
         }
     }
 }

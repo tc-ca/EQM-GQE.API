@@ -32,19 +32,18 @@ namespace EQM_GQE.TESTING
             {
                Id = 1,
                 Template = "Moq Test",
-                DocumentTitle = "Moq Test",
-                BusinessLineId = 1,
-                DocumentTypeId = 1,
-                DocumentStatusId = 1,
-                SecurityClassificationId = 1,
+                DocumentTitle_EN = "Moq Test",
+                DocumentTitle_FR = "[fr]Moq Test",
                 CreatedOn = System.DateTime.Now,
                 ModifiedOn = System.DateTime.Now,
                 CreatedBy = "Moq Test User",
                 ModifiedBy = "Moq Test User",
                 ActiveStatus = true,
                 DocumentVersion = 1,
-                EffectiveDate = System.DateTime.Now,
-                ChangeSummary = "Moq Test Summary",
+                EffectiveFromDate = System.DateTime.Now,
+                EffectiveToDate = System.DateTime.Now,
+                ChangeSummary_EN = "Moq Test Summary",
+                ChangeSummary_FR = "[fr]Moq Test Summary",
                 OrganisationAccessibility = true,
                 ParentId = 0
             },
@@ -52,19 +51,18 @@ namespace EQM_GQE.TESTING
             {
                Id = 2,
                 Template = "Moq Test 2",
-                DocumentTitle = "Moq Test 2",
-                BusinessLineId = 1,
-                DocumentTypeId = 1,
-                DocumentStatusId = 1,
-                SecurityClassificationId = 1,
+                DocumentTitle_EN = "Moq Test 2",
+                DocumentTitle_FR = "[fr]Moq Test 2",
                 CreatedOn = System.DateTime.Now,
                 ModifiedOn = System.DateTime.Now,
                 CreatedBy = "Moq Test User 2",
                 ModifiedBy = "Moq Test User 2",
                 ActiveStatus = true,
                 DocumentVersion = 1,
-                EffectiveDate = System.DateTime.Now,
-                ChangeSummary = "Moq Test Summary 2",
+                EffectiveFromDate = System.DateTime.Now,
+                EffectiveToDate = System.DateTime.Now,
+                ChangeSummary_EN = "Moq Test Summary 2",
+                ChangeSummary_FR = "[fr]Moq Test Summary 2",
                 OrganisationAccessibility = false,
                 ParentId = 0
             }
@@ -80,7 +78,8 @@ namespace EQM_GQE.TESTING
         
              _questionnaireRepository.Setup(x => x.Add(It.IsAny<Questionnaire>())).ReturnsAsync((Questionnaire q) =>
             {
-                q.Id = maxId + 1;
+                maxId = maxId + 1;
+                q.Id = maxId;
                 _questionnaires.Add(q);
                 return q.Id;
             }
@@ -108,7 +107,7 @@ namespace EQM_GQE.TESTING
         var result = _questionnaireLogic.Get(2);
         
         //Assert
-        result.DocumentTitle.Should().Be("Moq Test 2");
+        result.DocumentTitle_EN.Should().Be("Moq Test 2");
         }
 
         //Null Path
@@ -146,19 +145,18 @@ namespace EQM_GQE.TESTING
 
             var q = new Questionnaire{
                 Template = "Post",
-                DocumentTitle = "Post",
-                BusinessLineId = 1,
-                DocumentTypeId = 1,
-                DocumentStatusId = 1,
-                SecurityClassificationId = 1,
+                DocumentTitle_EN = "Post",
+                DocumentTitle_FR = "Post",
                 CreatedOn = System.DateTime.Now,
                 ModifiedOn = System.DateTime.Now,
                 CreatedBy = "MOULAST",
                 ModifiedBy = "MOULAST",
                 ActiveStatus = true,
                 DocumentVersion = 1,
-                EffectiveDate = System.DateTime.Now,
-                ChangeSummary = "Post Test",
+                EffectiveFromDate = System.DateTime.Now,
+                EffectiveToDate = System.DateTime.Now,
+                ChangeSummary_EN = "Post Test",
+                ChangeSummary_FR = "Post Test",
                 OrganisationAccessibility = true,
                 ParentId = 0
             };
@@ -180,12 +178,64 @@ namespace EQM_GQE.TESTING
             // Arange               
             var q = _questionnaireLogic.Get(1);
             // Act
-            q.DocumentTitle = "Test";
+            q.DocumentTitle_EN = "Test";
             var flag = Task.Run(async () => await _questionnaireLogic.Update(q)).GetAwaiter().GetResult();
 
             // Assert
             var result = _questionnaireLogic.Get(1);
-            result.DocumentTitle.Should().Be("Test");
+            result.DocumentTitle_EN.Should().Be("Test");
+        }
+
+        //Happy Path
+        [Fact]
+        public void GetWithHistory_ShouldHave_Count5()
+        {
+            //Arrange
+            var q = new Questionnaire{
+                Template = "Post",
+                DocumentTitle_EN = "Post",
+                DocumentTitle_FR = "Post",
+                CreatedOn = System.DateTime.Now,
+                ModifiedOn = System.DateTime.Now,
+                CreatedBy = "MOULAST",
+                ModifiedBy = "MOULAST",
+                ActiveStatus = true,
+                DocumentVersion = 1,
+                EffectiveFromDate = System.DateTime.Now,
+                EffectiveToDate = System.DateTime.Now,
+                ChangeSummary_EN = "Post Test",
+                ChangeSummary_FR = "Post Test",
+                OrganisationAccessibility = true,
+                ParentId = 0
+            };
+
+            var id = Task.Run(async () => await _questionnaireLogic.Add(q)).GetAwaiter().GetResult();
+
+            for (int i = 0; i < 4; i++){
+                q = new Questionnaire{
+                    Template = "Post",
+                    DocumentTitle_EN = "Post",
+                    DocumentTitle_FR = "Post",
+                    CreatedOn = System.DateTime.Now,
+                    ModifiedOn = System.DateTime.Now,
+                    CreatedBy = "MOULAST",
+                    ModifiedBy = "MOULAST",
+                    ActiveStatus = true,
+                    DocumentVersion = 1,
+                    EffectiveFromDate = System.DateTime.Now,
+                    EffectiveToDate = System.DateTime.Now,
+                    ChangeSummary_EN = "Post Test",
+                    ChangeSummary_FR = "Post Test",
+                    OrganisationAccessibility = true,
+                    ParentId = id
+                };
+                id = Task.Run(async () => await _questionnaireLogic.Add(q)).GetAwaiter().GetResult();
+            }
+            //Act
+            var result = _questionnaireLogic.GetWithHistory(id);
+
+            //Assert
+            result.Should().HaveCount(5);
         }
     }
 }

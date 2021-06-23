@@ -17,24 +17,23 @@ namespace EQM_GQE.LOGICAL
             _questionnaireRepository = questionnaireRepository;
         }
 
-        public async Task<long> Add(Questionnaire oQuestionnaire)
+        public async Task<int> Add(Questionnaire oQuestionnaire)
         {
             Questionnaire questionnaire = new()
             {
                 Template = oQuestionnaire.Template,
-                DocumentTitle = oQuestionnaire.DocumentTitle,
-                BusinessLineId = oQuestionnaire.BusinessLineId,
-                DocumentTypeId = oQuestionnaire.DocumentTypeId,
-                DocumentStatusId = oQuestionnaire.DocumentStatusId,
-                SecurityClassificationId = oQuestionnaire.SecurityClassificationId,
+                DocumentTitle_EN = oQuestionnaire.DocumentTitle_EN,
+                DocumentTitle_FR = oQuestionnaire.DocumentTitle_FR,
                 CreatedOn = oQuestionnaire.CreatedOn,
                 ModifiedOn = oQuestionnaire.ModifiedOn,
                 CreatedBy = oQuestionnaire.CreatedBy,
                 ModifiedBy = oQuestionnaire.ModifiedBy,
                 ActiveStatus = oQuestionnaire.ActiveStatus,
                 DocumentVersion = oQuestionnaire.DocumentVersion,
-                EffectiveDate = oQuestionnaire.EffectiveDate,
-                ChangeSummary = oQuestionnaire.ChangeSummary,
+                EffectiveFromDate = oQuestionnaire.EffectiveFromDate,
+                EffectiveToDate = oQuestionnaire.EffectiveToDate,
+                ChangeSummary_EN = oQuestionnaire.ChangeSummary_EN,
+                ChangeSummary_FR = oQuestionnaire.ChangeSummary_FR,
                 OrganisationAccessibility = oQuestionnaire.OrganisationAccessibility,
                 ParentId = oQuestionnaire.ParentId
             };
@@ -52,6 +51,18 @@ namespace EQM_GQE.LOGICAL
         {
             var questionnaire = _questionnaireRepository.Get(id);
             return questionnaire;
+        }
+
+         public IList<Questionnaire> GetWithHistory(int id)
+        {
+            var list = new List<Questionnaire>();
+            var questionnaire = _questionnaireRepository.Get(id);
+            if (questionnaire != null){
+                list.Add(questionnaire);
+                list.AddRange(GetWithHistory(questionnaire.ParentId));
+            }
+
+            return list;
         }
 
         public async Task<List<Questionnaire>> GetAllAsync()
