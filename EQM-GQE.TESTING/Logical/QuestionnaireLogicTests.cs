@@ -78,7 +78,8 @@ namespace EQM_GQE.TESTING
         
              _questionnaireRepository.Setup(x => x.Add(It.IsAny<Questionnaire>())).ReturnsAsync((Questionnaire q) =>
             {
-                q.Id = maxId + 1;
+                maxId = maxId + 1;
+                q.Id = maxId;
                 _questionnaires.Add(q);
                 return q.Id;
             }
@@ -190,11 +191,51 @@ namespace EQM_GQE.TESTING
         public void GetWithHistory_ShouldHave_Count5()
         {
             //Arrange
+            var q = new Questionnaire{
+                Template = "Post",
+                DocumentTitle_EN = "Post",
+                DocumentTitle_FR = "Post",
+                CreatedOn = System.DateTime.Now,
+                ModifiedOn = System.DateTime.Now,
+                CreatedBy = "MOULAST",
+                ModifiedBy = "MOULAST",
+                ActiveStatus = true,
+                DocumentVersion = 1,
+                EffectiveFromDate = System.DateTime.Now,
+                EffectiveToDate = System.DateTime.Now,
+                ChangeSummary_EN = "Post Test",
+                ChangeSummary_FR = "Post Test",
+                OrganisationAccessibility = true,
+                ParentId = 0
+            };
 
+            var id = Task.Run(async () => await _questionnaireLogic.Add(q)).GetAwaiter().GetResult();
+
+            for (int i = 0; i < 4; i++){
+                q = new Questionnaire{
+                    Template = "Post",
+                    DocumentTitle_EN = "Post",
+                    DocumentTitle_FR = "Post",
+                    CreatedOn = System.DateTime.Now,
+                    ModifiedOn = System.DateTime.Now,
+                    CreatedBy = "MOULAST",
+                    ModifiedBy = "MOULAST",
+                    ActiveStatus = true,
+                    DocumentVersion = 1,
+                    EffectiveFromDate = System.DateTime.Now,
+                    EffectiveToDate = System.DateTime.Now,
+                    ChangeSummary_EN = "Post Test",
+                    ChangeSummary_FR = "Post Test",
+                    OrganisationAccessibility = true,
+                    ParentId = id
+                };
+                id = Task.Run(async () => await _questionnaireLogic.Add(q)).GetAwaiter().GetResult();
+            }
             //Act
+            var result = _questionnaireLogic.GetWithHistory(id);
 
             //Assert
-            
+            result.Should().HaveCount(5);
         }
     }
 }
