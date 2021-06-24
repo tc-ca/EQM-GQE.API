@@ -1,11 +1,13 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace EQM_GQE.SHARED_RESOURCES.Models
 {
     [Table("TY002_DOCUMENT_TYPE")]
     public class DocumentType
     {
+        [Key] 
         [Column("DOCUMENT_TYPE_CD")]
         public int DocumentTypeId { get; set; }
         

@@ -1,11 +1,13 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace EQM_GQE.SHARED_RESOURCES.Models
 {
     [Table("TY001_BUSINESS_LINE")]
     public class BusinessLine
     {
+        [Key] 
         [Column("BUSINESS_LINE_CD")]
         public int BusinessLineId { get; set; }
         
