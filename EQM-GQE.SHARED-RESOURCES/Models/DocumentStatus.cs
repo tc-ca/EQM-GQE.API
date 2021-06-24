@@ -1,11 +1,13 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace EQM_GQE.SHARED_RESOURCES.Models
 {
     [Table("TY004_DOCUMENT_STATUS")]
     public class DocumentStatus
     {
+        [Key] 
         [Column("DOCUMENT_STATUS_CD")]
         public int DocumentStatusId { get; set; }
         
