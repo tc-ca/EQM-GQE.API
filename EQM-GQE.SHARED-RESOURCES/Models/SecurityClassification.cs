@@ -1,11 +1,13 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace EQM_GQE.SHARED_RESOURCES.Models
 {
     [Table("TY003_SECURITY_CLASSIFICATION")]
     public class SecurityClassification
     {
+        [Key] 
         [Column("SECURITY_CLASSIFICATION_CD")]
         public int SecurityClassificationId { get; set; }
         

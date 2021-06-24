@@ -3,15 +3,17 @@ using System;
 using EQM_GQE.DATA;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace EQM_GQE.DATA.Migrations
 {
     [DbContext(typeof(QuestionnaireContext))]
-    partial class QuestionnaireContextModelSnapshot : ModelSnapshot
+    [Migration("20210624202634_AddedKeys")]
+    partial class AddedKeys
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

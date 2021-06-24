@@ -6,7 +6,8 @@ namespace EQM_GQE.SHARED_RESOURCES.Models
 {
     [Table("CY001_QUESTIONNAIRE_TEMPLATE")]
     public class Questionnaire
-    {      
+    {   
+        [Key]   
         [RequiredAttribute]     
         [Column("QUESTIONNAIRE_TEMPLATE_ID")]     
         public int Id { get; set; }        
@@ -24,19 +25,19 @@ namespace EQM_GQE.SHARED_RESOURCES.Models
         public string DocumentTitle_FR { get; set; }
 
         [RequiredAttribute]     
-        [Column("BUSINESS_LINE_CD")]  
+        [ForeignKey("BUSINESS_LINE_CD")]  
         public BusinessLine BusinessLine { get; set; }
 
         [RequiredAttribute]     
-        [Column("DOCUMENT_TYPE_CD")]  
+        [ForeignKey("DOCUMENT_TYPE_CD")]  
         public DocumentType DocumentType { get; set; }
 
         [RequiredAttribute]     
-        [Column("DOCUMENT_STATUS_CD")]  
+        [ForeignKey("DOCUMENT_STATUS_CD")]  
         public DocumentStatus DocumentStatus { get; set; }
 
         [RequiredAttribute]     
-        [Column("SECURITY_CLASSIFICATION_CD")]  
+        [ForeignKey("SECURITY_CLASSIFICATION_CD")]  
         public SecurityClassification SecurityClassification { get; set; }
 
         [RequiredAttribute]     
