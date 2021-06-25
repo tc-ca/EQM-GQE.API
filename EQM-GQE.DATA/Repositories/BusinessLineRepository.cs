@@ -17,5 +17,31 @@ namespace EQM_GQE.DATA.Repositories
         {
             _context  = context;
         }
+
+        public async Task<int> Add(BusinessLine businessLine)
+        {
+            await _context.BusinessLines.AddAsync(businessLine, CancellationToken.None);
+            await _context.SaveChangesAsync(CancellationToken.None);
+            return businessLine.BusinessLineId;
+        }
+
+        public async Task<bool> Update(BusinessLine businessLine)
+        {
+            _context.BusinessLines.Update(businessLine);
+            await _context.SaveChangesAsync(CancellationToken.None);
+            return true;               
+        }
+
+        public BusinessLine Get(int id)
+        {
+            var result = _context.BusinessLines.FirstOrDefault(o => o.BusinessLineId == id);
+            return result;
+        }
+
+        public async Task<List<BusinessLine>> GetAllAsync()
+        {
+            var result = await _context.BusinessLines.ToListAsync();
+            return result;
+        }
     }
 }
