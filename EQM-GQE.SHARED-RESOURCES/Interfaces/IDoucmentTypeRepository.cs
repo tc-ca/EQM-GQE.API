@@ -9,6 +9,12 @@ namespace EQM_GQE.SHARED_RESOURCES.Interfaces
 {
     public interface IDocumentTypeRepository
     {
+        Task<int> Add(DocumentType documentType);
 
+        Task<bool> Update(DocumentType documentType);
+
+        DocumentType Get(int id);
+
+        Task<List<DocumentType>> GetAllAsync();
     }
 }
