@@ -35,7 +35,12 @@ namespace EQM_GQE.LOGICAL
                 ChangeSummary_EN = oQuestionnaire.ChangeSummary_EN,
                 ChangeSummary_FR = oQuestionnaire.ChangeSummary_FR,
                 OrganisationAccessibility = oQuestionnaire.OrganisationAccessibility,
-                ParentId = oQuestionnaire.ParentId
+                ParentId = oQuestionnaire.ParentId,
+                BusinessLine = oQuestionnaire.BusinessLine,
+                DocumentStatus = oQuestionnaire.DocumentStatus,
+                DocumentType = oQuestionnaire.DocumentType,
+                SecurityClassification = oQuestionnaire.SecurityClassification,
+                DeletedOn = oQuestionnaire.DeletedOn
             };
 
             var id = await _questionnaireRepository.Add(questionnaire);
@@ -68,6 +73,20 @@ namespace EQM_GQE.LOGICAL
         public async Task<List<Questionnaire>> GetAllAsync()
         {
             var questionnaires = await _questionnaireRepository.GetAllAsync();            
+            return questionnaires;
+        }
+
+         public async Task<List<Questionnaire>> GetAllActiveAsync()
+        {
+            var questionnaires = await _questionnaireRepository.GetAllAsync(); 
+            questionnaires = questionnaires.Where(q => q.ActiveStatus == true).ToList();
+            return questionnaires;
+        }
+
+         public async Task<List<Questionnaire>> GetAllByModeAsync(int mode)
+        {
+            var questionnaires = await _questionnaireRepository.GetAllAsync();
+            questionnaires = questionnaires.Where(q => q.ActiveStatus == true && q.BusinessLine.BusinessLineId == mode).ToList();         
             return questionnaires;
         }
     }

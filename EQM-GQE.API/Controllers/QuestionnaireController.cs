@@ -45,6 +45,30 @@ namespace EQM_GQE.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("active")]
+        public async Task<ActionResult<List<Questionnaire>>> GetAllActive()
+        {
+            var result = await _questionnaireLogic.GetAllActiveAsync();
+            if (result == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet("mode/{id:int}")]
+        public async Task<ActionResult<List<Questionnaire>>> GetAll(int mode)
+        {
+            var result = await _questionnaireLogic.GetAllByModeAsync(mode);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
+
         [HttpGet]
         public async Task<ActionResult<List<Questionnaire>>> GetAll()
         {
