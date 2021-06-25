@@ -98,7 +98,7 @@ namespace EQM_GQE.TESTING
              });
 
             _questionnaireRepository.Setup(x => x.GetAllAsync()).ReturnsAsync((List<Questionnaire>)_questionnaires);
-             
+            
             _questionnaireLogic = new QuestionnaireLogic(_questionnaireRepository.Object);
         }
 
@@ -259,7 +259,7 @@ namespace EQM_GQE.TESTING
                 ModifiedBy = "MOULAST",
                 BusinessLine = new BusinessLine
                 {
-                    BusinessLineId = 4
+                    BusinessLineId = 1
                 },
                 ActiveStatus = true,
                 DocumentVersion = 1,

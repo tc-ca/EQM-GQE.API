@@ -35,7 +35,12 @@ namespace EQM_GQE.LOGICAL
                 ChangeSummary_EN = oQuestionnaire.ChangeSummary_EN,
                 ChangeSummary_FR = oQuestionnaire.ChangeSummary_FR,
                 OrganisationAccessibility = oQuestionnaire.OrganisationAccessibility,
-                ParentId = oQuestionnaire.ParentId
+                ParentId = oQuestionnaire.ParentId,
+                BusinessLine = oQuestionnaire.BusinessLine,
+                DocumentStatus = oQuestionnaire.DocumentStatus,
+                DocumentType = oQuestionnaire.DocumentType,
+                SecurityClassification = oQuestionnaire.SecurityClassification,
+                DeletedOn = oQuestionnaire.DeletedOn
             };
 
             var id = await _questionnaireRepository.Add(questionnaire);
