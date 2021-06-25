@@ -70,5 +70,19 @@ namespace EQM_GQE.LOGICAL
             var questionnaires = await _questionnaireRepository.GetAllAsync();            
             return questionnaires;
         }
+
+         public async Task<List<Questionnaire>> GetAllActiveAsync()
+        {
+            var questionnaires = await _questionnaireRepository.GetAllAsync(); 
+            questionnaires = questionnaires.Where(q => q.ActiveStatus == true).ToList();
+            return questionnaires;
+        }
+
+         public async Task<List<Questionnaire>> GetAllByModeAsync(int mode)
+        {
+            var questionnaires = await _questionnaireRepository.GetAllAsync();
+            questionnaires = questionnaires.Where(q => q.ActiveStatus == true && q.BusinessLine.BusinessLineId == mode).ToList();         
+            return questionnaires;
+        }
     }
 }

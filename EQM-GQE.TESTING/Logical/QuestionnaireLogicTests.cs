@@ -38,7 +38,10 @@ namespace EQM_GQE.TESTING
                 ModifiedOn = System.DateTime.Now,
                 CreatedBy = "Moq Test User",
                 ModifiedBy = "Moq Test User",
-                ActiveStatus = true,
+                BusinessLine = new BusinessLine{
+                    BusinessLineId = 2
+                },
+                ActiveStatus = false,
                 DocumentVersion = 1,
                 EffectiveFromDate = System.DateTime.Now,
                 EffectiveToDate = System.DateTime.Now,
@@ -57,6 +60,9 @@ namespace EQM_GQE.TESTING
                 ModifiedOn = System.DateTime.Now,
                 CreatedBy = "Moq Test User 2",
                 ModifiedBy = "Moq Test User 2",
+                BusinessLine = new BusinessLine{
+                    BusinessLineId = 2
+                },
                 ActiveStatus = true,
                 DocumentVersion = 1,
                 EffectiveFromDate = System.DateTime.Now,
@@ -236,6 +242,56 @@ namespace EQM_GQE.TESTING
 
             //Assert
             result.Should().HaveCount(5);
+        }
+
+        //Happy Path
+        [Fact]
+        public void GetAllByMode_ShouldHave_Count1()
+        {
+            //Arrange
+            var q = new Questionnaire{
+                Template = "Post",
+                DocumentTitle_EN = "Post",
+                DocumentTitle_FR = "Post",
+                CreatedOn = System.DateTime.Now,
+                ModifiedOn = System.DateTime.Now,
+                CreatedBy = "MOULAST",
+                ModifiedBy = "MOULAST",
+                BusinessLine = new BusinessLine
+                {
+                    BusinessLineId = 4
+                },
+                ActiveStatus = true,
+                DocumentVersion = 1,
+                EffectiveFromDate = System.DateTime.Now,
+                EffectiveToDate = System.DateTime.Now,
+                ChangeSummary_EN = "Post Test",
+                ChangeSummary_FR = "Post Test",
+                OrganisationAccessibility = true,
+                ParentId = 0
+            };
+
+            var id = Task.Run(async () => await _questionnaireLogic.Add(q)).GetAwaiter().GetResult();
+
+           //Act
+            var list = Task.Run(async () => await _questionnaireLogic.GetAllByModeAsync(2)).GetAwaiter().GetResult();
+
+            //Assert
+            list.Should().HaveCount(1);
+        }
+
+        //Happy Path
+        [Fact]
+        public void GetAllActive_ShouldHave_Count1()
+        {
+            //Arrange
+           
+
+           //Act
+            var list = Task.Run(async () => await _questionnaireLogic.GetAllActiveAsync()).GetAwaiter().GetResult();
+
+            //Assert
+            list.Should().HaveCount(1);
         }
     }
 }
