@@ -48,7 +48,7 @@ namespace EQM_GQE.SHARED_RESOURCES.Models
         public DateTime ModifiedOn { get; set; }
 
         [Column("DATE_DELETED_DTE")]  
-        public DateTime DeletedOn { get; set; }
+        public DateTime? DeletedOn { get; set; }
         
         [RequiredAttribute]     
         [Column("USER_CREATE_ID")]  
