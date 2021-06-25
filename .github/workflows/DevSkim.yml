@@ -1,0 +1,26 @@
+
+name: "DevSkim"
+
+on:
+  push:
+    branches: [ development, main ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ development ]
+    
+jobs:
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+    
+      - name: DevSkim
+        uses: microsoft/DevSkim-Action@v1
