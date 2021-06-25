@@ -18,5 +18,8 @@ namespace EQM_GQE.SHARED_RESOURCES.Interfaces
         Task<List<Questionnaire>> GetAllAsync();
 
         IList<Questionnaire> GetWithHistory(int id);
+
+        Task<List<Questionnaire>> GetAllActiveAsync();
+        Task<List<Questionnaire>> GetAllByModeAsync(int mode);
     }
 }
