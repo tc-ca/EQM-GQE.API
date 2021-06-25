@@ -17,5 +17,31 @@ namespace EQM_GQE.DATA.Repositories
         {
             _context  = context;
         }
+
+         public async Task<int> Add(SecurityClassification securityClassification)
+        {
+            await _context.SecurityClassifications.AddAsync(securityClassification, CancellationToken.None);
+            await _context.SaveChangesAsync(CancellationToken.None);
+            return securityClassification.SecurityClassificationId;
+        }
+
+        public async Task<bool> Update(SecurityClassification securityClassification)
+        {
+            _context.SecurityClassifications.Update(securityClassification);
+            await _context.SaveChangesAsync(CancellationToken.None);
+            return true;               
+        }
+
+        public SecurityClassification Get(int id)
+        {
+            var result = _context.SecurityClassifications.FirstOrDefault(o => o.SecurityClassificationId == id);
+            return result;
+        }
+
+        public async Task<List<SecurityClassification>> GetAllAsync()
+        {
+            var result = await _context.SecurityClassifications.ToListAsync();
+            return result;
+        }
     }
 }
