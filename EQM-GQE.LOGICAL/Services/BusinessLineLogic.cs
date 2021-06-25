@@ -10,6 +10,29 @@ namespace EQM_GQE.LOGICAL
 {
     public class BusinessLineLogic : IBusinessLineLogic
     {
+        public Task<int> Add(BusinessLine businessLine)
+        {
+            throw new NotImplementedException();
+        }
 
+        public BusinessLine Get(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<BusinessLine>> GetAllActiveAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<BusinessLine>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> Update(BusinessLine businessLine)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

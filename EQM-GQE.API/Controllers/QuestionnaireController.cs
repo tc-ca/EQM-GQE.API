@@ -96,7 +96,7 @@ namespace EQM_GQE.API.Controllers
         }
 
         [HttpPut("{id}")]      
-        public async Task<ActionResult> UpdateQuestionnaire(Questionnaire Questionnaire, long id)
+        public async Task<ActionResult> UpdateQuestionnaire(Questionnaire Questionnaire, int id)
         {
             if (id != Questionnaire.Id)
             {
