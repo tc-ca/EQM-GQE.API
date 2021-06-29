@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using EQM_GQE.DATA.Repositories;
 using EQM_GQE.SHARED_RESOURCES.Interfaces;
 using EQM_GQE.LOGICAL;
+using EQM_GQE.LOGICAL.Services;
 
 namespace EQM_GQE.API
 {
@@ -36,6 +37,18 @@ namespace EQM_GQE.API
             services.AddScoped<IQuestionnaireContext>(provider => provider.GetService<QuestionnaireContext>());
             services.AddScoped<IQuestionnaireRepository, QuestionnaireRepository>();
             services.AddScoped<IQuestionnaireLogic, QuestionnaireLogic>();
+
+            services.AddScoped<IBusinessLineRepository, BusinessLineRepository>();
+            services.AddScoped<IBusinessLineLogic, BusinessLineLogic>();
+
+            services.AddScoped<IDocumentStatusRepository, DocumentStatusRepository>();
+            services.AddScoped<IDocumentStatusLogic, DocumentStatusLogic>();
+
+            services.AddScoped<IDocumentTypeRepository, DocumentTypeRepository>();
+            services.AddScoped<IDocumentTypeLogic, DocumentTypeLogic>();
+
+            services.AddScoped<IBusinessLineAccessControlRepository, BusinessLineAccessControlRepository>();
+            services.AddScoped<IBusinessLineAccessControlLogic, BusinessLineAccessControlLogic>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
