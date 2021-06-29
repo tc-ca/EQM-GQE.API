@@ -17,11 +17,11 @@ namespace EQM_GQE.SHARED_RESOURCES.Models
         public string Template { get; set; }
         
         [RequiredAttribute]     
-        [Column("DOCUMENT_TITLE_TXT_EN")]  
+        [Column("DOCUMENT_TITLE_ETXT")]  
         public string DocumentTitle_EN { get; set; }
         
         [RequiredAttribute]     
-        [Column("DOCUMENT_TITLE_TXT_FR")]  
+        [Column("DOCUMENT_TITLE_FTXT")]  
         public string DocumentTitle_FR { get; set; }
 
         [RequiredAttribute]     
@@ -64,16 +64,16 @@ namespace EQM_GQE.SHARED_RESOURCES.Models
         [Column("DOCUMENT_VERSION_NUM")]  
         public int DocumentVersion { get; set; }
 
-        [Column("EFFECTIVE_FROM_DATE_DTE")]  
+        [Column("DATE_EFFECTIVE_BEGIN_DTE")]  
         public DateTime EffectiveFromDate { get; set; }
         
-        [Column("EFFECTIVE_TO_DATE_DTE")]  
+        [Column("DATE_EFFECTIVE_END_DTE")]  
         public DateTime EffectiveToDate { get; set; }
 
-        [Column("CHANGE_SUMMARY_TXT_EN")]  
+        [Column("CHANGE_SUMMARY_ETXT")]  
         public string ChangeSummary_EN { get; set; }
         
-        [Column("CHANGE_SUMMARY_TXT_FR")]  
+        [Column("CHANGE_SUMMARY_FTXT")]  
         public string ChangeSummary_FR { get; set; }
 
         [Column("ORGANIZATION_ACCESSIBILITY_IND")]  
