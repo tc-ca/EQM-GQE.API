@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using EQM_GQE.SHARED_RESOURCES.Models;
+
+namespace EQM_GQE.SHARED_RESOURCES.Interfaces
+{
+    public interface IQuestionnaireLogic
+    {
+        Task<int> Add(Questionnaire Questionnaire);
+
+        Task<bool> Update(Questionnaire Questionnaire);
+
+        Questionnaire Get(int id);
+
+        Task<List<Questionnaire>> GetAllAsync();
+
+        IList<Questionnaire> GetWithHistory(int id);
+
+        Task<List<Questionnaire>> GetAllActiveAsync();
+        Task<List<Questionnaire>> GetAllByModeAsync(int mode);
+    }
+}

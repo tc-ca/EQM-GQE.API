@@ -4,47 +4,106 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using EQM_GQE.API.Models;
+using EQM_GQE.SHARED_RESOURCES.Models;
+using EQM_GQE.LOGICAL;
+using EQM_GQE.SHARED_RESOURCES.Interfaces;
 
 namespace EQM_GQE.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class QuestionnaireController : ControllerBase
-    {
-        // Sample data
-        private static readonly string[] Templates = new[]
-        {
-            "{ 'pages': [ { 'name': 'page1', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }", 
-            "{ 'pages': [ { 'name': 'page2', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }", 
-            "{ 'pages': [ { 'name': 'page3', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }", 
-            "{ 'pages': [ { 'name': 'page4', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }", 
-            "{ 'pages': [ { 'name': 'page5', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }", 
-            "{ 'pages': [ { 'name': 'page6', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }", 
-            "{ 'pages': [ { 'name': 'page7', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }", 
-            "{ 'pages': [ { 'name': 'page8', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }", 
-            "{ 'pages': [ { 'name': 'page9', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }", 
-            "{ 'pages': [ { 'name': 'page10', 'elements': [ { 'type': 'text', 'name': 'question1' }, { 'type': 'checkbox', 'name': 'question2', 'choices': [ 'item1', 'item2', 'item3' ] } ] } ] }" 
-        };
+    {     
+        private readonly IQuestionnaireLogic _questionnaireLogic;
 
-        private readonly ILogger<QuestionnaireController> _logger;
-
-        public QuestionnaireController(ILogger<QuestionnaireController> logger)
+        public QuestionnaireController(IQuestionnaireLogic questionnaireLogic)
         {
-            _logger = logger;
+            _questionnaireLogic = questionnaireLogic;
+        }
+
+        [HttpGet("{id:int}")]
+        public ActionResult GetById(int id)
+        {
+            var result = _questionnaireLogic.Get(id);
+            if (result == null)
+            {
+                return BadRequest("Template not found");
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet("{id:int}/history")]
+        public ActionResult<List<Questionnaire>> GetWithHistoryById(int id)
+        {
+            var result = _questionnaireLogic.GetWithHistory(id);
+            if (result == null)
+            {
+                return BadRequest("Template not found");
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet("active")]
+        public async Task<ActionResult<List<Questionnaire>>> GetAllActive()
+        {
+            var result = await _questionnaireLogic.GetAllActiveAsync();
+            if (result == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet("mode/{id:int}")]
+        public async Task<ActionResult<List<Questionnaire>>> GetAll(int mode)
+        {
+            var result = await _questionnaireLogic.GetAllByModeAsync(mode);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
         }
 
         [HttpGet]
-        public IEnumerable<Questionnaire> Get()
+        public async Task<ActionResult<List<Questionnaire>>> GetAll()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new Questionnaire
+            var result = await _questionnaireLogic.GetAllAsync();
+            if (result == null)
             {
-                Id = index,
-                DateCreated = DateTime.Now.AddDays(index),
-                Template = Templates[rng.Next(Templates.Length)]
-            })
-            .ToArray();
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
+
+        
+
+        [HttpPost]        
+        public async Task<ActionResult> CreateQuestionnaire(Questionnaire oQuestionnaire)
+        {
+            var result = await _questionnaireLogic.Add(oQuestionnaire);
+            if (result == 0)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPut("{id}")]      
+        public async Task<ActionResult> UpdateQuestionnaire(Questionnaire Questionnaire, int id)
+        {
+            if (id != Questionnaire.Id)
+            {
+                return BadRequest();
+            }
+            return await _questionnaireLogic.Update(Questionnaire) ? Ok() : BadRequest();
+          
         }
     }
 }
