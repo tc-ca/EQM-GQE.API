@@ -20,5 +20,11 @@ namespace EQM_GQE.LOGICAL
             var documentType = _documentTypeRepository.Get(id);
             return documentType;
         }
+        public async Task<List<DocumentType>> GetAllAsync()
+        {
+            var documentType = await _documentTypeRepository.GetAllAsync();
+            return documentType;
+        }
+
     }
 }
