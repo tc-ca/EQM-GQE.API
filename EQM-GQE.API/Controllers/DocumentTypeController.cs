@@ -13,7 +13,21 @@ namespace EQM_GQE.API.Controllers
     [ApiController]
     [Route("api/[controller]")]
     public class DocumentTypeController : ControllerBase
-    {    
+    {
+        private readonly IDocumentTypeLogic _documentTypeLogic;
 
+        public DocumentTypeController(IDocumentTypeLogic documentTypeLogic)
+        {
+            _documentTypeLogic = documentTypeLogic;
+        }
+        
+        [HttpGet("{id:int}")]
+        public ActionResult GetById(int id)
+        {
+            var result = _documentTypeLogic.Get(id);
+            if (result == null)
+                return BadRequest("Template not found");
+            return Ok(result);
+        }
     }
 }
