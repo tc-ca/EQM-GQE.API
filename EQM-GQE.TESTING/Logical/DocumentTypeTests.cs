@@ -6,6 +6,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace EQM_GQE.TESTING
@@ -41,6 +42,7 @@ namespace EQM_GQE.TESTING
                 var result = _documentType.Where(q => q.DocumentTypeId == id).FirstOrDefault();
                 return result;
             });
+            _documentTypeRepository.Setup(x => x.GetAllAsync()).ReturnsAsync((List<DocumentType>)_documentType);
             _documentTypeLogic = new DocumentTypeLogic(_documentTypeRepository.Object);
         }
 
@@ -69,6 +71,19 @@ namespace EQM_GQE.TESTING
             //Assert
             result.Should().Be(null);
         }
+        //Happy Path
+        [Fact]
+        public void GetAllAsync_ShouldHave_Count2()
+        {
+            //Arange
+
+            //Act
+            var list = Task.Run(async () => await _documentTypeLogic.GetAllAsync()).GetAwaiter().GetResult();
+
+            //Assert
+            list.Count.Should().Be(2);
+        }
+
     }
 
 }

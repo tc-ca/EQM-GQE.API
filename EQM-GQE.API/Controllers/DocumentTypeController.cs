@@ -29,5 +29,16 @@ namespace EQM_GQE.API.Controllers
                 return BadRequest("Template not found");
             return Ok(result);
         }
+        [HttpGet]
+        public async Task<ActionResult<List<DocumentType>>> GetAll()
+        {
+            var result = await _documentTypeLogic.GetAllAsync();
+            if (result == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
     }
 }
