@@ -10,6 +10,15 @@ namespace EQM_GQE.LOGICAL
 {
     public class DocumentTypeLogic : IDocumentTypeLogic
     {
-
+        private readonly IDocumentTypeRepository _documentTypeRepository;
+        public DocumentTypeLogic(IDocumentTypeRepository documentTypeRepository)
+        {
+            _documentTypeRepository = documentTypeRepository;
+        }
+        public DocumentType Get(int id)
+        {
+            var documentType = _documentTypeRepository.Get(id);
+            return documentType;
+        }
     }
 }
