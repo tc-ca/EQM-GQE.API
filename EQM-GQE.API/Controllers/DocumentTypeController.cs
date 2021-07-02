@@ -40,5 +40,39 @@ namespace EQM_GQE.API.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("active")]
+        public async Task<ActionResult<List<DocumentType>>> GetAllActive()
+        {
+            var result = await _documentTypeLogic.GetAllActiveAsync();
+            if (result == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
+        [HttpPost]
+        public async Task<ActionResult> CreateDocumentType(DocumentType documentType)
+        {
+            var result = await _documentTypeLogic.Add(documentType);
+            if (result == 0)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateDocumentType(DocumentType documentType, int id)
+        {
+            if (id != documentType.DocumentTypeId)
+            {
+                return BadRequest();
+            }
+            return await _documentTypeLogic.Update(documentType) ? Ok() : BadRequest();
+
+        }
     }
 }
