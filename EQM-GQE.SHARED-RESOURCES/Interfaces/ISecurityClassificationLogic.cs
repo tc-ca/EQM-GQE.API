@@ -9,6 +9,10 @@ namespace EQM_GQE.SHARED_RESOURCES.Interfaces
 {
     public interface ISecurityClassificationLogic
     {
-        
+        SecurityClassification Get(int id);
+        Task<List<SecurityClassification>> GetAllAsync();
+        Task<List<SecurityClassification>> GetAllActiveAsync();
+        Task<int> Add(SecurityClassification securityClassification);
+        Task<bool> Update(SecurityClassification securityClassification);
     }
 }
