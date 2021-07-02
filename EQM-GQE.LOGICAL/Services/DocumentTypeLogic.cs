@@ -25,6 +25,11 @@ namespace EQM_GQE.LOGICAL
             var documentType = await _documentTypeRepository.GetAllAsync();
             return documentType;
         }
-
+        public async Task<List<DocumentType>> GetAllActiveAsync()
+        {
+            var businessLines = await _documentTypeRepository.GetAllAsync();
+            businessLines = businessLines.Where(q => q.DeletedOn == null).ToList();
+            return businessLines;
+        }
     }
 }

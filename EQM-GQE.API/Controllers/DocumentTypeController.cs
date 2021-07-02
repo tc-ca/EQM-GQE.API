@@ -40,5 +40,17 @@ namespace EQM_GQE.API.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("active")]
+        public async Task<ActionResult<List<DocumentType>>> GetAllActive()
+        {
+            var result = await _documentTypeLogic.GetAllActiveAsync();
+            if (result == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
     }
 }

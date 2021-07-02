@@ -84,6 +84,19 @@ namespace EQM_GQE.TESTING
             list.Count.Should().Be(2);
         }
 
+        //Happy Path
+        [Fact]
+        public void GetAllActive_ShouldHave_Count1()
+        {
+            //Arrange
+
+
+            //Act
+            var list = Task.Run(async () => await _documentTypeLogic.GetAllActiveAsync()).GetAwaiter().GetResult();
+
+            //Assert
+            list.Should().HaveCount(1);
+        }
     }
 
 }
