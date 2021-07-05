@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace EQM_GQE.SHARED_RESOURCES.Models
 {
     [Table("CY002_BUSINESS_LINE_ACCESS_CONTROL")]
-    class BusinessLineAccessControl
+    public class BusinessLineAccessControl
     {
         [Key]
         [Required]
