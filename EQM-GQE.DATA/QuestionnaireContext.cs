@@ -12,6 +12,7 @@ namespace EQM_GQE.DATA
         public DbSet<DocumentType> DocumentTypes { get; set; }
         public DbSet<DocumentStatus> DocumentStatus { get; set; }
         public DbSet<SecurityClassification> SecurityClassifications { get; set; }
+        public DbSet<BusinessLineAccessControl> BusinessLineAccessControl { get; set; }
 
     }
 }
