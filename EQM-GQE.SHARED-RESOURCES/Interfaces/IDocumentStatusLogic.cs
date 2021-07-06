@@ -9,6 +9,10 @@ namespace EQM_GQE.SHARED_RESOURCES.Interfaces
 {
     public interface IDocumentStatusLogic
     {
-        
+        DocumentStatus Get(int id);
+        Task<List<DocumentStatus>> GetAllAsync();
+        Task<List<DocumentStatus>> GetAllActiveAsync();
+        Task<int> Add(DocumentStatus documentStatus);
+        Task<bool> Update(DocumentStatus documentStatus);
     }
 }
