@@ -37,6 +37,6 @@ VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=aslaman
 
 Use this extention along with the vsc-extensions.txt file in the repo to download the needed extentions for the project.
 
-##Terraform for Azure Portal
+## Terraform for Azure Portal
 
 
