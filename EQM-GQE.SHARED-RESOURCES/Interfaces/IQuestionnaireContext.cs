@@ -16,6 +16,8 @@ namespace EQM_GQE.SHARED_RESOURCES.Interfaces
         public DbSet<DocumentType> DocumentTypes { get; set; }
         public DbSet<DocumentStatus> DocumentStatus { get; set; }
         public DbSet<SecurityClassification> SecurityClassifications { get; set; }
+        public DbSet<BusinessLineAccessControl> BusinessLineAccessControl { get; set; }
+
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 
