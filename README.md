@@ -32,8 +32,11 @@ dotnet ef --startup-project ../EQM-GQE.API migrations add *NameOfMigration* -c Q
 ## VS Code extentions
 
 Name: VSC Export & Import
+
 VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=aslamanver.vsc-export
 
 Use this extention along with the vsc-extensions.txt file in the repo to download the needed extentions for the project.
+
+##Terraform for Azure Portal
 
 
