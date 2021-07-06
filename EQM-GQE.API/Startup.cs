@@ -47,6 +47,9 @@ namespace EQM_GQE.API
             services.AddScoped<IDocumentTypeRepository, DocumentTypeRepository>();
             services.AddScoped<IDocumentTypeLogic, DocumentTypeLogic>();
 
+            services.AddScoped<ISecurityClassificationRepository, SecurityClassificationRepository>();
+            services.AddScoped<ISecurityClassificationLogic, SecurityClassificationLogic>();
+
             services.AddScoped<IBusinessLineAccessControlRepository, BusinessLineAccessControlRepository>();
             services.AddScoped<IBusinessLineAccessControlLogic, BusinessLineAccessControlLogic>();
 
