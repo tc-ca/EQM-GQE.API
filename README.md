@@ -39,4 +39,6 @@ Use this extention along with the vsc-extensions.txt file in the repo to downloa
 
 ## Terraform for Azure Portal
 
+A .terraform folder has been added to the repo to use terraform to recreate azure resources
+
 
